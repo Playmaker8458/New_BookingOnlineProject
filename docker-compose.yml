@@ -1,0 +1,28 @@
+services:
+  db:
+    # ตัวรัน postgreSQL Database
+    image: postgres:latest 
+    # ชื่อตัวเก็บ postgresSQL Database ตั้งเป็น (postgresSQL)
+    container_name: postgresSQL
+    # ตัวบังคับ restart container (เมื่อมีการเซตค่าผิดมันจะบังคับ restart ทันที)  
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # Port ในการเชื่อมต่อ Database
+    ports:
+      - "5432:5432" 
+
+  pgadmin:
+    #  ตัวรัน PgAdmin สำหรับจัดการฐานข้อมูล 
+    image: dpage/pgadmin4
+    # ชื่อตัวเก็บ PgAdmin ตั้งเป็น (pgadmin4)
+    container_name: pgadmin4 
+    # ตัวบังคับ restart container (เมื่อมีการเซตค่าผิดมันจะบังคับ restart ทันที)  
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    # Port ในการเปิด PgAdmin 
+    ports:
+      - "8888:80"
