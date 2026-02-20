@@ -1,9 +1,8 @@
 <script setup>
-    import { ref, computed } from 'vue';
-    import NavbarAdmin from '../../components/NavbarALL/NavbarAdmin.vue'
+    import { ref, computed } from 'vue'
+    import NavbarAdmin from '../../components/NavbarAdmin.vue'
     import Footer from '../../components/Footer.vue'
     
-
 
     const searchQuery = ref(''); // ดึงข้อมูลชื่อผู้ใช้จาก input และกำหนดลงในตัวแปร searchQuery
 
@@ -37,7 +36,7 @@
 
     <main class="bg-[#EBE8E8] flex justify-center items-center py-12 px-4 min-h-[calc(96vh-100px)]">
         <section class="w-full max-w-5xl">
-            <div class="mb-6">
+            <div class="mb-6 ">
                 <h1 class="text-2xl md:text-3xl font-bold mb-1">กำหนดสิทธิ์การเข้าสู่ระบบ</h1>
                 <p class="text-base md:text-lg font-semibold text-gray-700">
                     รายละเอียดข้อมูลกำหนดสิทธิ์การเข้าสู่ระบบทั้งหมด</p>

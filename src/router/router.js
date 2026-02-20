@@ -13,7 +13,15 @@ import ManageUserAccounts from '../page/AdminPage/ManageUserAccounts.vue'
 // หน้าเพจของนักศึกษาทั้งหมด
 import HomepageStudent from '../page/StudentPage/Homepage.vue'
 import BookAppointment from '../page/StudentPage/BookAppointment.vue'
+import ManageQueueStudent from '../page/StudentPage/Managequeue.vue'
+import RescheduleAppointmentStudent from '../page/StudentPage/RescheduleAppointment.vue'
 
+// หน้าเพจของอาจารย์ทั้งหมด
+import HomepageAdvisor from '../page/AdvisorPage/Homepage.vue'
+import ConsultationTimeSlot from '../page/AdvisorPage/ConsultationTimeSlot.vue'
+import ManageQueueAdvisor from '../page/AdvisorPage/ManageQueue.vue'
+import RescheduleAppointmentAdvisor from '../page/AdvisorPage/RescheduleAppointment.vue'
+import ConsultationTimeControl from '../page/AdvisorPage/ConsultationTimeControl.vue'
 
 const routes = [
     {
@@ -36,20 +44,53 @@ const routes = [
       name: 'LoginUser',
       component: LoginUser
     },
-
     {
       path: '/HomepageStudent',
       name: 'HomepageStudent',
       component: HomepageStudent
     },
-
     {
       path: '/BookAppointment',
       name: 'BookAppointment',
       component: BookAppointment
+    },
+    {
+      path: '/ManageQueueStudent',
+      name: 'ManageQueueStudent',
+      component: ManageQueueStudent
+    },
+    {
+      path: '/RescheduleAppointmentStudent',
+      name: 'RescheduleAppointmentStudent',
+      component: RescheduleAppointmentStudent
+    },
+
+    
+    {
+      path: '/HomepageAdvisor',
+      name: 'HomepageAdvisor',
+      component: HomepageAdvisor
+    },
+    {
+      path: '/ConsultationTimeSlot',
+      name: 'ConsultationTimeSlot',
+      component: ConsultationTimeSlot
+    },
+    {
+      path: '/ManageQueueAdvisor',
+      name: 'ManageQueueAdvisor',
+      component: ManageQueueAdvisor
+    },
+    {
+      path: '/RescheduleAppointmentAdvisor',
+      name: 'RescheduleAppointmentAdvisor',
+      component: RescheduleAppointmentAdvisor
+    },
+    {
+      path: '/ConsultationTimeControl',
+      name: 'ConsultationTimeControl',
+      component: ConsultationTimeControl
     }
-
-
 ]
 
 export default routes

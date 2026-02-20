@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed } from 'vue';
-import NavbarAdmin from '../../components/NavbarALL/NavbarAdmin.vue';
-import Footer from '../../components/Footer.vue';
+import { ref, computed } from 'vue'
+import NavbarAdmin from '../../components/NavbarAdmin.vue'
+import Footer from '../../components/Footer.vue'
 
 const searchQuery = ref(''); // ดึงข้อมูลชื่อผู้ใช้จาก input และกำหนดลงในตัวแปร searchQuery
 
@@ -116,8 +116,7 @@ const filteredUser = computed(() => {
                                     :class="{ 'border-b border-gray-200': index !== filteredUser.length - 1 }">
                                     <td class="px-4 py-3 text-center text-sm md:text-base">{{ user.firstName }}</td>
                                     <td class="px-4 py-3 text-center text-sm md:text-base">{{ user.lastName }}</td>
-                                    <td class="px-4 py-3 text-center text-sm md:text-base text-yellow-600">{{
-                                        user.status }}</td>
+                                    <td class="px-4 py-3 text-center text-sm md:text-base text-yellow-600">{{ user.status }}</td>
                                     <td class="px-4 py-3 text-center text-sm md:text-base">{{ user.permission }}</td>
                                     <td class="px-4 py-3 text-center text-sm md:text-base">{{ user.major }}</td>
                                     <td class="px-4 py-3 flex gap-2 text-center">
