@@ -21,27 +21,7 @@ backend/node_modules/
 dist/
 dist-ssr/
 
-# ==============================
-# Environment files (สำคัญมาก!)
-# ==============================
-.env
-backend/.env
 
-# ==============================
-# Docker
-# ==============================
-*.pid
-*.seed
-*.pid.lock
-
-# ==============================
-# Local config
-# ==============================
-*.local
-
-# ==============================
-# Editor directories and files
-# ==============================
 .vscode/*
 !.vscode/extensions.json
 .idea/
