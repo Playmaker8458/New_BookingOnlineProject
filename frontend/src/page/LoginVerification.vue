@@ -1,3 +1,9 @@
+<script setup>
+    import { useUserStore } from '../stores/user';
+    const user = useUserStore();
+    console.log(user.profile)
+</script>
+
 <template>
     <main class="flex justify-center items-center min-h-screen bg-[#1C6EA4]">
         <div class="text-center font-bold text-white">
