@@ -1,3 +1,7 @@
+<script setup>
+    
+</script>
+
 <template>
     <div class="flex justify-center items-center min-h-screen bg-[#1C6EA4]">
         <div class="min-h-full flex-col px-10">
