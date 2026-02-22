@@ -86,11 +86,6 @@ source env/bin/activate
 
 ### 1️. activate สำเร็จ ใน Windows 
 ```bash
-(env) PS C:Users\playmaker\my_project>
-```
-
-### 1️. activate สำเร็จ ใน Windows 
-```bash
 (env) PS C:Users\playmaker\Downloads\my_project>
 ```
 ### 1️. activate สำเร็จ ใน macOS/Linux
