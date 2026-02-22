@@ -1,6 +1,4 @@
-# ==============================
-# Logs
-# ==============================
+# Logs ทั่วไปๆ
 logs/
 *.log
 npm-debug.log*
@@ -9,24 +7,20 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# ==============================
-# front-end ทั้งหมด
-# ==============================
+
+# front-end บังคับไม้ให้ดึงโฟลเดอร์ node_modules ขึ้น github
 node_modules/
 
+# back-end บังคับไม้ให้ดึงโฟลเดอร์ env และ __pycache__ ขึ้น github
+backend/env/
+backend/__pycache__/
 
-# Ignore specific Vue file
-frontend/src/page/LoginUser.vue
 
-# ==============================
 # Build files (Vite)
-# ==============================
 dist/
 dist-ssr/
 
-# ==============================
 # file ทั่วๆไป
-# ==============================
 .vscode/*
 !.vscode/extensions.json
 .idea/

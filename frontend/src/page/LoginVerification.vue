@@ -1,7 +1,22 @@
 <script setup>
+    import axios from 'axios';
+    import { onMounted } from 'vue';
     import { useUserStore } from '../stores/user';
+
     const user = useUserStore();
-    console.log(user.profile)
+
+    const SendData_API = async () => {
+        const response = await axios.post('http://localhost:8000/api', {
+            UserID: user.profile.userId,
+            DisplayName: user.profile.displayName,
+            ImageUrl: user.profile.pictureUrl,
+        });
+        console.log(response.data);
+        console.log(`status: ${response.status}\nstatusText: ${response.statusText}`)
+    };
+    onMounted(() => {
+        SendData_API()
+    });
 </script>
 
 <template>
