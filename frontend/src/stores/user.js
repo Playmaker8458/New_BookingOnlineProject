@@ -9,7 +9,7 @@ export const useUserStore = defineStore('user', () => {
         // อัปเดตค่าใหม่ใหักับ profile ด้วยข้อมูลจากตัวแปร data
         profile.value = data;
     };
-    
-    // ส่งตัวแปร profile และ ฟังก์ชั่น setProfile กับไปใช้งานภายนอก 
+
+    // ส่งตัวแปร profile และ ฟังก์ชั่น setProfile ไปใช้งานภายนอก
     return { profile, setProfile } ;
 });
