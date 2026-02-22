@@ -3,18 +3,22 @@
     import { useUserStore } from '../stores/user'
     import { useRouter } from 'vue-router'
 
+    const user = useUserStore() // กำหนด useUserStore สำหรับส่งข้อมูลไปใช้งานภายนอกให้กับตัวแปร user
+    const router = useRouter() // กำหนด useRouter ที่ใช้สำหรับนำทางไปยังหน้าต่างให้กับตัวแปร router
 
-    const user = useUserStore() // กำหนด user store ที่ใช้ในการเก็บข้อมูล
-    const router = useRouter() // กำหนด router เพื่อเรียกใช้ path ในนำทางไปยังหน้าที่กำหนด
-
+    // Login ใช้สำหรับเข้าสู่ระบบหน้าเว็ปด้วย Line  
     const Login = async () => {
+        // กำหนด Liff ID ที่เก็บในไฟล์ .env สำหรับเริ่มต้นใช้งาน LINE Login
         await liff.init({ liffId: import.meta.env.VITE_LIFF_ID });
+        
+        // เช็คสถานะการเข้าสู่ระบบของ Line
         if (!liff.isLoggedIn()) {
-            liff.login()
+            liff.login() // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
         }
-        const data = await liff.getProfile() // กำหนดข้อมูลโปรไฟล์ ให้กับตัวแปร data
+        const data = await liff.getProfile() // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
+        // ส่งข้อมูลโปรไฟล์ของตัวแปร data เข้าไปเก็บใน useUserStore เพื่อให้สามารถเรียกใช้งานข้อมูลจากภายนอกได้
         user.setProfile(data)
-        router.push('/LoginVerification')
+        router.push('/LoginVerification') // ถ้า login แล้วก็จะนำทางไปยังหน้า "รอยืนยันสิทธิ์การเข้าสู่ระบบ"
     };
 </script>
 
@@ -27,8 +31,6 @@
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <h1 class="text-white mb-4">ล็อคอินผ่านไลน์สำหรับนักศึกษา และ อาจารย์</h1>
-
-                <!-- ✅ เปลี่ยนจาก onclick="main()" เป็น @click="main" -->
                 <button type="button" @click="Login()"
                     class="btn w-full bg-green-500 p-6 text-white border-none rounded-md shadow">
                     <div class="flex justify-center items-center gap-2">

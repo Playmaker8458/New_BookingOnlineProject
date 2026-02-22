@@ -1,13 +1,15 @@
-// stores/user.js
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref } from 'vue'; // นำส่วนเสริม ref มาใช้งาน
 
 export const useUserStore = defineStore('user', () => {
-    const profile = ref(null);
+    const profile = ref(null); // กำหนดค่าว่างให้กับตัวแปร profile เพื่อรอรับค่าจากภายนอก
 
+    // setProfile ใช้เก็บข้อมูลที่ส่งเข้ามาจากภายนอก
     const setProfile = (data) => {
+        // อัปเดตค่าใหม่ใหักับ profile ด้วยข้อมูลจากตัวแปร data
         profile.value = data;
     };
-
+    
+    // ส่งตัวแปร profile และ ฟังก์ชั่น setProfile กับไปใช้งานภายนอก 
     return { profile, setProfile } ;
 });
