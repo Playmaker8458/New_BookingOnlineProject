@@ -1,5 +1,5 @@
 ---
-# 📦 เครื่องมือที่ใช้ทั้งหมด
+## 📦 เครื่องมือที่ใช้ทั้งหมด
 ## Javascript
 - Vite: ตัวติดตั้ง framework ทั้งหมด
 - Vue 3: framework font-end
@@ -17,7 +17,7 @@
 ---
 
 
-# ⚙️ วิธีติดตั้งและรันโปรเจค
+## ⚙️ วิธีติดตั้งและรันโปรเจค
 ### 1️⃣ ติดตั้งส่วนเสริมทั้งหมดจาก package.json
 ```bash
 npm install
@@ -28,7 +28,7 @@ npm run dev
 ```
 
 ---
-# 📘 วิธีอัปเดตโปรเจคขึ้น GitHub
+## 📘 วิธีอัปเดตโปรเจคขึ้น GitHub
 #### เมื่อมีการแก้ไขไฟล์ในโปรเจคของเรา เวลาทำการอัพเดตขึ้น github ให้ใช้คำสั่งตามด้านล่าง
 
 ### 1️. ดึงไฟล์ในโฟลเดอร์ทั้งหมด เพื่อเตรียมไฟล์สำหรับการ Commit
@@ -47,7 +47,7 @@ git push
 ```
 ---
 
-# 📘 วิธีการสร้าง Virtual Environment
+## 📘 วิธีการสร้าง Virtual Environment
 #### ก่อนสร้าง env เราจะต้องสร้างโฟรเดอร์ก่อน เพื่อเก็บไฟล์ python กับ env ในการเก็บส่วนเสริม ให้ใช้คำสั่งตามด้านล่าง
 
 ### 1️. สร้างโฟรเดอร์
@@ -68,7 +68,7 @@ python -m venv env
 python3 -m venv env
 ```
 ---
-# 📘 วิธีเข้าถึง Virtual Environment
+## 📘 วิธีเข้าถึง Virtual Environment
 #### เมื่อสร้าง env เสร็จแล้วจะต้องทำการเรียกใช้งาน Environment ให้ใช้คำสั่งต่อไปนี้
 
 ### 1️. Activate venv สำหรับ Windows
@@ -81,7 +81,7 @@ env\Scripts\activate
 source env/bin/activate
 ```
 ---
-# 📘 การ activate สำเร็จ
+## 📘 การ activate สำเร็จ
 #### เมื่อ activate หรือ เข้าถึง Environment สำเร็จจะสามารถเข้าไปใช้งานได้ตามตัวอย่างด้านล่าง
 
 ### 1️. activate สำเร็จ ใน Windows 
@@ -94,7 +94,7 @@ source env/bin/activate
 ```
 ---
 
-# 📘 วิธีการออกจาก Virtual Environment (env)
+## 📘 วิธีการออกจาก Virtual Environment (env)
 #### วิธีการออกจาก Virtual Environment ให้ใช้คำสั่งตามด่านล่าง
 ### 1️. activate สำเร็จ ใน Windows 
 ```bash
