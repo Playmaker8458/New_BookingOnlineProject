@@ -81,7 +81,7 @@ env\Scripts\activate
 source env/bin/activate
 ```
 ---
-# 📘 เมื่อ activate สำเร็จ
+# 📘 การ activate สำเร็จ
 #### เมื่อ activate หรือ เข้าถึง Environment สำเร็จจะสามารถเข้าไปใช้งานได้ตามตัวอย่างด้านล่าง
 
 ### 1️. activate สำเร็จ ใน Windows 
