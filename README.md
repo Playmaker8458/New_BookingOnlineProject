@@ -68,7 +68,7 @@ python -m venv env
 python3 -m venv env
 ```
 ---
-# 📘 วิธีเข้าถึง หรือ ใช้งาน Virtual Environment
+# 📘 วิธีเข้าถึง Virtual Environment
 #### เมื่อสร้าง env เสร็จแล้วจะต้องทำการเรียกใช้งาน Environment ให้ใช้คำสั่งต่อไปนี้
 
 ### 1️. Activate venv สำหรับ Windows
@@ -88,7 +88,7 @@ source env/bin/activate
 ```bash
 (env) PS C:Users\playmaker\Downloads\my_project>
 ```
-### 1️. activate สำเร็จ ใน macOS/Linux
+### 2. activate สำเร็จ ใน macOS/Linux
 ```bash
 (env) playmaker@playmaker8458 my_project % 
 ```
