@@ -1,7 +1,7 @@
 <script setup>
-    import NavbarStudent from '../../components/NavbarStudent.vue'
-    import Card_ManageQueue from '../../components/StudentContent/Card_ManageQueue.vue'
-    import Footer from '../../components/Footer.vue'
+    import NavbarStudent from '../../components/NavbarStudent.vue';
+    import Card_ManageQueue from '../../components/StudentContent/Card_ManageQueue.vue';
+    import Footer from '../../components/Footer.vue';
 </script>
 
 <template>

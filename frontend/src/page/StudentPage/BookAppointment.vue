@@ -1,7 +1,7 @@
 <script setup>
-    import NavbarStudent from '../../components/NavbarStudent.vue'
-    import Form_BookingAppointment from '../../components/StudentContent/Form_BookingAppointment.vue'
-    import Footer from '../../components/Footer.vue'
+    import NavbarStudent from '../../components/NavbarStudent.vue';
+    import Form_BookingAppointment from '../../components/StudentContent/Form_BookingAppointment.vue';
+    import Footer from '../../components/Footer.vue';
 </script>
 
 <template>

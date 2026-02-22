@@ -1,7 +1,7 @@
 <script setup>
-    import NavbarAdvisor from '../../components/NavbarAdvisor.vue'
-    import FormRescheduleAppointmentAdvisor from '../../components/AdvisorContent/form_RescheduleAppointmentAdvisor.vue' 
-    import Footer from '../../components/Footer.vue'
+    import NavbarAdvisor from '../../components/NavbarAdvisor.vue';
+    import FormRescheduleAppointmentAdvisor from '../../components/AdvisorContent/form_RescheduleAppointmentAdvisor.vue';
+    import Footer from '../../components/Footer.vue';
 </script>
 
 <template>

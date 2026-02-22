@@ -1,7 +1,7 @@
 <script setup>
-    import NavbarAdvisor from '../../components/NavbarAdvisor.vue'
-    import form_ConsultationTimeControl from '../../components/AdvisorContent/form_ConsultationTimeControl.vue'
-    import Footer from '../../components/Footer.vue'
+    import NavbarAdvisor from '../../components/NavbarAdvisor.vue';
+    import form_ConsultationTimeControl from '../../components/AdvisorContent/form_ConsultationTimeControl.vue';
+    import Footer from '../../components/Footer.vue';
 </script>
 <template>
     <NavbarAdvisor />

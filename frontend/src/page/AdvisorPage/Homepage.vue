@@ -4,7 +4,7 @@
     import headerAdvisor from '../../components/AdvisorContent/headerAdvisor.vue';
     import ContentAdvisor from '../../components/AdvisorContent/ContentAdvisor.vue';
     
-    import Footer from '../../components/Footer.vue'
+    import Footer from '../../components/Footer.vue';
 </script>
 
 <template>

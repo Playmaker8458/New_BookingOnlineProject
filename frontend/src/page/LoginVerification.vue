@@ -3,19 +3,18 @@
     import { onMounted } from 'vue';
     import { useUserStore } from '../stores/user';
 
-    const user = useUserStore();
+    const user = useUserStore()
 
     const SendData_API = async () => {
         const response = await axios.post('http://localhost:8000/api', {
             UserID: user.profile.userId,
             DisplayName: user.profile.displayName,
             ImageUrl: user.profile.pictureUrl,
-        });
+        })
         console.log(response.data);
-        console.log(`status: ${response.status}\nstatusText: ${response.statusText}`)
     };
     onMounted(() => {
-        SendData_API()
+        SendData_API();
     });
 </script>
 

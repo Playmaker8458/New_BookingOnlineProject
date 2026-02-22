@@ -1,8 +1,8 @@
 <script setup>
-    import NavbarAdmin from '../../components/NavbarAdmin.vue'
+    import NavbarAdmin from '../../components/NavbarAdmin.vue';
 
-    import headerAdmin from '../../components/AdminContent/headerAdmin.vue'
-    import ContentAdmin from '../../components/AdminContent/ContentAdmin.vue'
+    import headerAdmin from '../../components/AdminContent/headerAdmin.vue';
+    import ContentAdmin from '../../components/AdminContent/ContentAdmin.vue';
     
     import Footer from '../../components/Footer.vue';
 </script>

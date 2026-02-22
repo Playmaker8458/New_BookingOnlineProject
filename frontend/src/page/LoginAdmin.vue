@@ -7,7 +7,7 @@
     // TogglePassword เป็นตัวที่ให้ input tag แสดงรหัสผ่านออกมา
     const TogglePassword = () => {
         isVisible.value = !isVisible.value;
-    } 
+    };
 </script>
 
 <template>

@@ -3,8 +3,8 @@
     import { useUserStore } from '../stores/user'
     import { useRouter } from 'vue-router'
 
-    const user = useUserStore() // กำหนด useUserStore สำหรับส่งข้อมูลไปใช้งานภายนอกให้กับตัวแปร user
-    const router = useRouter() // กำหนด useRouter ที่ใช้สำหรับนำทางไปยังหน้าต่างให้กับตัวแปร router
+    const user = useUserStore(); // กำหนด useUserStore สำหรับส่งข้อมูลไปใช้งานภายนอกให้กับตัวแปร user
+    const router = useRouter(); // กำหนด useRouter ที่ใช้สำหรับนำทางไปยังหน้าต่างให้กับตัวแปร router
 
     // Login ใช้สำหรับเข้าสู่ระบบหน้าเว็ปด้วย Line  
     const Login = async () => {
@@ -13,12 +13,12 @@
         
         // เช็คสถานะการเข้าสู่ระบบของ Line
         if (!liff.isLoggedIn()) {
-            liff.login() // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
-        }
-        const data = await liff.getProfile() // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
+            liff.login(); // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
+        };
+        const data = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
         // ส่งข้อมูลโปรไฟล์ของตัวแปร data เข้าไปเก็บใน useUserStore เพื่อให้สามารถเรียกใช้งานข้อมูลจากภายนอกได้
-        user.setProfile(data)
-        router.push('/LoginVerification') // ถ้า login แล้วก็จะนำทางไปยังหน้า "รอยืนยันสิทธิ์การเข้าสู่ระบบ"
+        user.setProfile(data);
+        router.push('/LoginVerification'); // ถ้า login แล้วก็จะนำทางไปยังหน้า "รอยืนยันสิทธิ์การเข้าสู่ระบบ"
     };
 </script>
 

@@ -1,10 +1,10 @@
 <script setup>
-    import NavbarStudent from '../../components/NavbarStudent.vue'
+    import NavbarStudent from '../../components/NavbarStudent.vue';
 
-    import headerStudent from '../../components/StudentContent/headerStudent.vue'
-    import ContentStudent from '../../components/StudentContent/ContentStudent.vue'
+    import headerStudent from '../../components/StudentContent/headerStudent.vue';
+    import ContentStudent from '../../components/StudentContent/ContentStudent.vue';
 
-    import Footer from '../../components/Footer.vue'
+    import Footer from '../../components/Footer.vue';
 </script>
 
 <template>
