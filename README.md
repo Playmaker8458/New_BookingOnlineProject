@@ -94,3 +94,10 @@ source env/bin/activate
 ```
 ---
 
+# 📘 วิธีการออกจาก Virtual Environment (env)
+#### วิธีการออกจาก Virtual Environment ให้ใช้คำสั่งตามด่านล่าง
+### 1️. activate สำเร็จ ใน Windows 
+```bash
+deactivate
+```
+---
