@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue'; // นำส่วนเสริม ref มาใช้งาน
+import { ref } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
     const profile = ref(null); // กำหนดค่าว่างให้กับตัวแปร profile เพื่อรอรับค่าจากภายนอก
