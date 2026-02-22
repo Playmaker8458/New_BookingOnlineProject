@@ -61,10 +61,13 @@ cd my_project
 ```
 
 ### 3. สร้าง Environment หรือ ตัวจำลองในการเก็บส่วนเสริมของ python
-```bash (windown)
+#### 3.1. สร้าง Environment ใน windown
+```bash 
 python -m venv env
 ```
-```bash (macOS/Linux)
+
+#### 3.2. สร้าง Environment ใน macOS/Linux
+```bash 
 python3 -m venv env
 ```
 ---
