@@ -10,6 +10,6 @@ export const useUserStore = defineStore('user', () => {
         profile.value = data;
     };
 
-    // ส่งตัวแปร profile และ ฟังก์ชั่น setProfile ไปใช้งานภายนอก
+    // ส่งตัวแปร profile และฟังก์ชั่น setProfile กลับไปใช้งานภายนอก
     return { profile, setProfile } ;
 });
