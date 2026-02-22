@@ -12,7 +12,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ กำหนด Model ให้ตรงกับข้อมูลจาก LIFF
+
 class UserProfile(BaseModel):
     UserID: str
     DisplayName: str
