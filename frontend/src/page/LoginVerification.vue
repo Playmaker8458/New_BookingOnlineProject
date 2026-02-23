@@ -11,6 +11,7 @@
             DisplayName: user.profile.displayName,
             ImageUrl: user.profile.pictureUrl,
         })
+
         .then(response_post => {
             console.log(response_post.data)
         })

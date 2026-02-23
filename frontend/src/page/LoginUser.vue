@@ -9,18 +9,17 @@
     // Login ใช้สำหรับเข้าสู่ระบบหน้าเว็ปด้วย Line  
     const Login = async () => {
         try{
-            // กำหนด Liff ID ที่เก็บในไฟล์ .env สำหรับเริ่มต้นใช้งาน LINE Login
-            await liff.init({ liffId: import.meta.env.VITE_LIFF_ID });
+            await liff.init({ liffId: import.meta.env.VITE_LIFF_ID }); // กำหนด Liff ID ที่เก็บในไฟล์ .env สำหรับเริ่มต้นใช้งาน LINE Login
         
             // เช็คสถานะการเข้าสู่ระบบของ Line
             if (!liff.isLoggedIn()) {
                 liff.login(); // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
             };
-            
+
             const data = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
-            // ส่งข้อมูลโปรไฟล์ของตัวแปร data เข้าไปเก็บใน useUserStore เพื่อให้สามารถเรียกใช้งานข้อมูลจากภายนอกได้
-            user.setProfile(data);
+            user.setProfile(data); // ส่งข้อมูลโปรไฟล์ของตัวแปร data เข้าไปเก็บใน useUserStore เพื่อให้สามารถเรียกใช้งานข้อมูลจากภายนอกได้
             router.push('/LoginVerification'); // ถ้า login แล้วก็จะนำทางไปยังหน้า "รอยืนยันสิทธิ์การเข้าสู่ระบบ"
+
         } catch (error) {
             console.log(`Line Liff Error: ${error}`)
         }
