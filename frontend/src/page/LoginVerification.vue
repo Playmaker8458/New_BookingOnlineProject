@@ -5,16 +5,18 @@
 
     const user = useUserStore()
 
-    const SendData_API = async () => {
-        const response = await axios.post('http://localhost:8000/api', {
+    const CreateData_API = async () => {
+        await axios.post('http://localhost:8000/profile', {
             UserID: user.profile.userId,
             DisplayName: user.profile.displayName,
             ImageUrl: user.profile.pictureUrl,
         })
-        console.log(response.data);
+        .then(response_post => {
+            console.log(response_post.data)
+        })
     };
     onMounted(() => {
-        SendData_API();
+        CreateData_API();
     });
 </script>
 

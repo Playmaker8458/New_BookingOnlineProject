@@ -5,9 +5,9 @@ from pydantic import BaseModel
 # สร้างตัวอย่าง fastAPI เพื่อใช้ในการจัดการข้อมูลที่ส่งมาด้วย API ทั้งหมด
 app = FastAPI()
 
-# กำหนดสิทธิ์การเข้าถึงข้อมูลในเว็ป Browser ด้วย API
+# กำหนดสิทธิ์เพื่อให้รับข้อมูล หรือ เข้าถึงข้อมูลใน fontend ด้วย API 
 app.add_middleware(
-    # โดยเลือกใช้เป็น CORS เพิ้อให้เข้าถึงข้อมูลใน Browser
+    # โดยเลือกใช้เป็น CORS เพิ่อใช้สำหรับส่งข้อมูลผ่าน API
     CORSMiddleware,
     allow_origins=["http://localhost:5173"], # อนุญาตให้เข้าถึง Vue dev server localhost
     allow_methods=["*"], # อนุญาตให้เข้าถึง HTTP Method ทั้งหมด (GET, POST, PUT, DELETE)
@@ -22,8 +22,8 @@ class UserProfile(BaseModel):
 
 
 # ส่งข้อมูลแบบ post โดยจะส่งกลับไปแสดงในหน้า console (Dev-tool: F12) ของเว็ปเพจ
-@app.post("/api")
-async def receive_profile(data: UserProfile):
+@app.post("/profile")
+async def Show_profile(data: UserProfile):
     global Profile_Data  # กำหนดให้ตัวแปร Profile_Data เรียกใช้งานจากด้านนอกได้
 
     # กำหนดข้อมูลโปลไฟล์ของไลน์ให้ตรงกับที่ดึงมาจาก Axios API ของฝั่ง frontend
@@ -34,11 +34,11 @@ async def receive_profile(data: UserProfile):
     }
 
     # ส่งข้อมูลโปรไฟล์ของไลน์กลับไปแสดงใน localhost ของฝั่ง frontend
-    # ส่งข้อมูลกลับไปเป็น dictionary
     return {"userId": Profile_Data["UserID"], "DisplayName": Profile_Data["DisplayName"], "ImageUrl": Profile_Data["ImageUrl"]}
 
+
 # ส่งข้อมูลแบบ get โดยส่งข้อมูลโปรไฟล์จาก LINE Liff กลับไปแสดงใน doc ของ API
-@app.get("/api")
+@app.get("/profile/show")
 async def get_profile():
     # ส่งข้อมูลลโปรไฟล์จาก LINE Liff กลับไปเป็น dictionary
     return {
