@@ -15,6 +15,7 @@ node_modules/
 backend/env/
 backend/__pycache__/
 
+BORC.sql
 
 # Build files (Vite)
 dist/
