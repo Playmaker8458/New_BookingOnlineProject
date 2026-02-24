@@ -7,15 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-
 # front-end บังคับไม้ให้ดึงโฟลเดอร์ node_modules ขึ้น github
 node_modules/
 
 # back-end บังคับไม้ให้ดึงโฟลเดอร์ env และ __pycache__ ขึ้น github
 backend/env/
 backend/__pycache__/
-
-BORC.sql
 
 # Build files (Vite)
 dist/
