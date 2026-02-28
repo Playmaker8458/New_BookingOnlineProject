@@ -1,5 +1,48 @@
-# Vue 3 + Vite
+---
+## 📦 เครื่องมือที่ใช้ทั้งหมด
+## Javascript
+- Vite: ตัวติดตั้ง framework ทั้งหมด
+- Vue 3: framework font-end
+- vue-router: ตัวกำหนด path ในการนำทางไปยังหน้าเพจต่างๆของผู้ใช้ 
+- Tailwind CSS และ Daysi UI: ตัวตกแต่งหน้าเว็ป
+- oh-vue-icons: ไอคอนสำหรับตกแต่งหน้าเว็ป
+- Axios: API สำหรับส่งข้อมูลของฟังก์ชั่น Frontend
+- chart.js: กราฟแท่งสถิติสำหรับแสดงหน้าหลักของผู้ใช้แต่ละคน
+- cally: ปฎิทินของผู้ใช้
+- pinia: ใช้จัดการสถานะ ในการส่งค่าไปเก็บในตัวกลาง
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Python
+- fastapi: API สำหรับส่งข้อมูลของฟังก์ชั่น Backend
+- uvicorn: เป็น server ที่ใช้ในการรัน API เมื่อมีการเรียกใช้ --reload จะรีสตาร์สอัตโนมัติเมื่่อโค้ดมีการเปลี่ยนแปลง
+---
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+
+## ⚙️ วิธีติดตั้งและรันโปรเจค
+### 1️⃣ ติดตั้งส่วนเสริมทั้งหมดจาก package.json
+```bash
+npm install
+```
+### 2️⃣ รันโปรเจค
+```bash
+npm run dev
+```
+
+---
+## 📘 วิธีอัปเดตโปรเจคขึ้น GitHub
+#### เมื่อมีการแก้ไขไฟล์ในโปรเจคของเรา เวลาทำการอัพเดตขึ้น github ให้ใช้คำสั่งตามด้านล่าง
+
+### 1️. ดึงไฟล์ในโฟลเดอร์ทั้งหมด เพื่อเตรียมไฟล์สำหรับการ Commit
+```bash
+git add .
+```
+
+### 2. สร้างโน๊ตสำหรับเปลี่ยนแปลงของไฟล์ที่ดึงมาทั้งหมด
+```bash
+git commit -m "ข้อความที่จะให้บันทึกสำหรับการอัพเดต"
+```
+
+### 3. ดึงไฟล์จากการ commit ทั้งหมดอัพเดตขึ้น github
+```bash
+git push
+```
+---
