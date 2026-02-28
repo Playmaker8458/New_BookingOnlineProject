@@ -1,7 +1,7 @@
 services:
   db:
     # ตัวรัน postgreSQL Database
-    image: postgres:latest 
+    image: postgres:15
     # ชื่อตัวเก็บ postgresSQL Database ตั้งเป็น (postgresSQL)
     container_name: postgresSQL
     # ตัวบังคับ restart container (เมื่อมีการเซตค่าผิดมันจะบังคับ restart ทันที)  
@@ -12,6 +12,9 @@ services:
     # Port ในการเชื่อมต่อ Database
     ports:
       - "5432:5432" 
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    
 
   pgadmin:
     #  ตัวรัน PgAdmin สำหรับจัดการฐานข้อมูล 
@@ -26,3 +29,6 @@ services:
     # Port ในการเปิด PgAdmin 
     ports:
       - "8888:80"
+
+volumes:
+  postgres_data:

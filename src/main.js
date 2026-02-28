@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-import { router } from './router'
+import  router  from './router'
 import App from './App.vue'
 
 // setup tailwindcss and daisyui
 import './assets/style.css'
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import * as FaIcons from "oh-vue-icons/icons/";
+import * as FaIcons from "oh-vue-icons/icons";
 
 const Fa = Object.values({ ...FaIcons })
 addIcons(...Fa)

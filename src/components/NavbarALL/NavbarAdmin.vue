@@ -1,5 +1,16 @@
 <script setup>
     import { RouterLink } from 'vue-router';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+
+    function logout(){
+        // clear access_token และ expiresAt เวลาหมดอายุของ token
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("expiresAt");
+
+        router.push("/admin/loginadmin");
+    }
 </script>
 
 <template>
@@ -19,14 +30,17 @@
         </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="flex px-1 text-white gap-10 text-xl">
-                <li class="hover:text-gray-300"><RouterLink to="/homepageAdmin">หน้าหลัก</RouterLink></li>
-                <li class="hover:text-gray-300"><RouterLink to="/loginrights">ยืนยันสิทธิ์การเข้าสู่ระบบ</RouterLink></li>
-                <li class="hover:text-gray-300"><RouterLink to="/manageuseraccounts">จัดการบัญชี</RouterLink></li>
+                <li class="hover:text-gray-300"><RouterLink to="/admin/homepageAdmin">หน้าหลัก</RouterLink></li>
+                <li class="hover:text-gray-300"><RouterLink to="/admin/loginrights">ยืนยันสิทธิ์การเข้าสู่ระบบ</RouterLink></li>
+                <li class="hover:text-gray-300"><RouterLink to="/admin/manageuseraccounts">จัดการบัญชี</RouterLink></li>
             </ul>
         </div>
 
         <div class="navbar-end mr-5">
-            <a href="/loginadmin" class="btn bg-red-600 rounded-md border-none shadow-none text-white text-sm lg:text-lg lg:p-6.5 p-5">ออกจากระบบ</a>
+            <v-list-item @click="logout">
+            <!-- <a href="/admin/loginadmin" class="btn bg-red-600 rounded-md border-none shadow-none text-white text-sm lg:text-lg lg:p-6.5 p-5">ออกจากระบบ</a> -->
+            <a href="/admin/loginadmin" class="btn bg-red-600 rounded-md border-none shadow-none text-white text-sm lg:text-lg lg:p-6.5 p-5">ออกจากระบบ</a>
+            </v-list-item>
         </div>
     </nav>
 </template>
