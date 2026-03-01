@@ -12,7 +12,7 @@ node_modules/
 
 # back-end บังคับไม้ให้ดึงโฟลเดอร์ env และ __pycache__ ขึ้น github
 backend/env/
-backend/__pycache__/
+__pycache__/
 
 # บังคับไม่ให้ไฟล์ environment ขึ้น github
 frontend/.env

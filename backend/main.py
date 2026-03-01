@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from Database.ConnectDB import get_connectionDB
+from Admin.auth.auth import router as auth_router
+
 
 # สร้างตัวอย่าง fastAPI เพื่อใช้ในการจัดการข้อมูลที่ส่งมาด้วย API ทั้งหมด
 app = FastAPI()
@@ -9,22 +12,24 @@ app = FastAPI()
 app.add_middleware(
     # โดยเลือกใช้เป็น CORS เพิ่อใช้สำหรับส่งข้อมูลผ่าน API
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], # อนุญาตให้เข้าถึง Vue dev server localhost
+    allow_origins=["*"], # ตรงนี้เปลี่ยนเป็น frontend domain จริงตอน production
+    allow_credentials=True,
     allow_methods=["*"], # อนุญาตให้เข้าถึง HTTP Method ทั้งหมด (GET, POST, PUT, DELETE)
     allow_headers=["*"], # อนุญาตให้เข้าถึง Header URL ทุกๆตัวที่ส่งมาทั้งหมด
 )
 
-# กำหนดข้อมูลโปรไฟล์ให้ตรงกับ LineLiff สำหรับใช้ในการรับและส่งข้อมูลผ่าน API
+# กำหนดข้อมูลในการส่งแบบ Requeate API 
 class UserProfile(BaseModel):
-    UserID: str  # รับข้อมูล "UserID" ของผู้ใช้จาก Line 
-    DisplayName: str # รับข้อมูล "ชื่อจริง" ของผู้ใช้จาก Line 
-    ImageUrl: str # รับข้อมูล "path-รูปภาพ" ของผู้ใช้จาก Line 
+    UserID: str  
+    DisplayName: str 
+    ImageUrl: str
 
+# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /auth/Login สำหรับ login
+app.include_router(auth_router, prefix="/auth")
 
 # ส่งข้อมูลแบบ post โดยจะส่งกลับไปแสดงในหน้า console (Dev-tool: F12) ของเว็ปเพจ
 @app.post("/profile")
 async def Show_profile(data: UserProfile):
-    global Profile_Data  # กำหนดให้ตัวแปร Profile_Data เรียกใช้งานจากด้านนอกได้
 
     # กำหนดข้อมูลโปลไฟล์ของไลน์ให้ตรงกับที่ดึงมาจาก Axios API ของฝั่ง frontend
     Profile_Data = {
@@ -32,17 +37,26 @@ async def Show_profile(data: UserProfile):
         "DisplayName": data.DisplayName,
         "ImageUrl": data.ImageUrl,
     }
+    
+    conn = get_connectionDB()
+    cur = conn.cursor()
+
+    # ชุดคำสั่งที่ใช้ในการแทรกข้อมูลในตาราง "LoginPermissions" (ห้ามซ้ำ)
+    SQL_insert = """
+        INSERT INTO "LoginPermissions" (uuid_line, fullname, profile_image)  
+        VALUES (%s,%s,%s) 
+        ON CONFLICT (uuid_line) DO NOTHING;
+    """
+
+    cur.execute(
+        SQL_insert,
+        (Profile_Data['UserID'], Profile_Data['DisplayName'], Profile_Data['ImageUrl'])
+    )
+    conn.commit()
+
+    cur.close()
+    conn.close()
+    
 
     # ส่งข้อมูลโปรไฟล์ของไลน์กลับไปแสดงใน localhost ของฝั่ง frontend
-    return {"userId": Profile_Data["UserID"], "DisplayName": Profile_Data["DisplayName"], "ImageUrl": Profile_Data["ImageUrl"]}
-
-
-# ส่งข้อมูลแบบ get โดยส่งข้อมูลโปรไฟล์จาก LINE Liff กลับไปแสดงใน doc ของ API
-@app.get("/profile/show")
-async def get_profile():
-    # ส่งข้อมูลลโปรไฟล์จาก LINE Liff กลับไปเป็น dictionary
-    return {
-        "DisplayName": Profile_Data['DisplayName'], 
-        "ImageUrl" : Profile_Data['ImageUrl'],  
-        "UserID" : Profile_Data['UserID']
-    }
+    return Profile_Data

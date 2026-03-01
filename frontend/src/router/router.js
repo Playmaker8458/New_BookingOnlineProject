@@ -1,6 +1,9 @@
 // หน้่าเพจหลัก
 import landingpage from '../page/landingpage.vue'
 
+// layout
+import AdminLayout from '../layout/AdminLayout.vue'
+
 // หน้า Login ของผู้ดูแลระบบ และผู้ใช้ทั้ง 2 กลุ่ม [นักศึกษา และ อาจารย์]
 import LoginAdmin from '../page/LoginAdmin.vue'
 import LoginUser from '../page/LoginUser.vue'
@@ -36,11 +39,17 @@ const routes = [
     },
     {
       path: '/admin',
+      component: AdminLayout,
       children: [
-        {path: '/loginadmin', name: "loginadmin", component: LoginAdmin},
-        {path: '/homepageAdmin', name: "homepageAdmin", component: HomepageAdmin},
-        {path: '/loginrights', name: "loginrights", component: LoginRights},
-        {path: '/manageuseraccounts', name: "manageuseraccounts", component: ManageUserAccounts}
+        {path: 'loginadmin', name: "loginadmin", component: LoginAdmin},
+        {
+          path: 'homepageAdmin',
+          name: 'homepageAdmin',
+          component: HomepageAdmin,
+          meta: { requiresAuth: true }
+        },
+        { path: 'loginrights', name: "loginrights", component: LoginRights },
+        { path: 'manageuseraccounts', name: "manageuseraccounts", component: ManageUserAccounts }
       ]
     },
 

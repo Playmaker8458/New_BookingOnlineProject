@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import { router } from './router'
 import { createPinia } from 'pinia'
+import router from './router'
 import App from './App.vue'
 
 // setup tailwindcss and daisyui
