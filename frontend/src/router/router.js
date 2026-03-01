@@ -2,7 +2,7 @@
 import landingpage from '../page/landingpage.vue'
 
 // layout
-import AdminLayout from '../layout/AdminLayout.vue'
+import AdminLayout from '../page/AdminPage/AdminLayout.vue'
 
 // หน้า Login ของผู้ดูแลระบบ และผู้ใช้ทั้ง 2 กลุ่ม [นักศึกษา และ อาจารย์]
 import LoginAdmin from '../page/LoginAdmin.vue'
