@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from Database.ConnectDB import get_connectionDB
-from Admin.auth.auth import router as auth_router
+ 
+from Admin.routers.auth import router as auth_router
+from routers.login_permissions import router as Permission_router
+from routers.Profile_LineLogin import router as LineProfile_router
 
 
 # สร้างตัวอย่าง fastAPI เพื่อใช้ในการจัดการข้อมูลที่ส่งมาด้วย API ทั้งหมด
@@ -18,45 +19,12 @@ app.add_middleware(
     allow_headers=["*"], # อนุญาตให้เข้าถึง Header URL ทุกๆตัวที่ส่งมาทั้งหมด
 )
 
-# กำหนดข้อมูลในการส่งแบบ Requeate API 
-class UserProfile(BaseModel):
-    UserID: str  
-    DisplayName: str 
-    ImageUrl: str
 
-# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /auth/Login สำหรับ login
+# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /auth/Login สำหรับ login ฝั่ง Admin
 app.include_router(auth_router, prefix="/auth")
 
-# ส่งข้อมูลแบบ post โดยจะส่งกลับไปแสดงในหน้า console (Dev-tool: F12) ของเว็ปเพจ
-@app.post("/profile")
-async def Show_profile(data: UserProfile):
+# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Login/LoginVerification สำหรับ login User
+app.include_router(LineProfile_router, prefix="/Login")
 
-    # กำหนดข้อมูลโปลไฟล์ของไลน์ให้ตรงกับที่ดึงมาจาก Axios API ของฝั่ง frontend
-    Profile_Data = {
-        "UserID": data.UserID,
-        "DisplayName": data.DisplayName,
-        "ImageUrl": data.ImageUrl,
-    }
-    
-    conn = get_connectionDB()
-    cur = conn.cursor()
-
-    # ชุดคำสั่งที่ใช้ในการแทรกข้อมูลในตาราง "LoginPermissions" (ห้ามซ้ำ)
-    SQL_insert = """
-        INSERT INTO "LoginPermissions" (uuid_line, fullname, profile_image)  
-        VALUES (%s,%s,%s) 
-        ON CONFLICT (uuid_line) DO NOTHING;
-    """
-
-    cur.execute(
-        SQL_insert,
-        (Profile_Data['UserID'], Profile_Data['DisplayName'], Profile_Data['ImageUrl'])
-    )
-    conn.commit()
-
-    cur.close()
-    conn.close()
-    
-
-    # ส่งข้อมูลโปรไฟล์ของไลน์กลับไปแสดงใน localhost ของฝั่ง frontend
-    return Profile_Data
+# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Table/LoginPermissions สำหรับ login User
+app.include_router(Permission_router, prefix="/Table")

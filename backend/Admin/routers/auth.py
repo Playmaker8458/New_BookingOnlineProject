@@ -86,7 +86,7 @@ def login(data: LoginRequest):
             "user_id": user_id  # id user
         })
 
-        # ส่ง token กลับ client
+        # ส่ง token กลับ client กลับไปแสดงใน path /login (fastapi)
         return {"access_token": access_token}
 
     # error ที่เราสร้างเอง client จะเห็น
@@ -97,6 +97,7 @@ def login(data: LoginRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# ส่งข้อมูลกลับไปแสดงใน documentation ของ fastapi ใน path ที่ชื่อว่า show 
 @router.get("/show")
 def ShowData_Login():
     # ส่ง token กลับ client

@@ -6,7 +6,7 @@
     const user = useUserStore()
 
     const CreateData_API = async () => {
-        await axios.post('http://localhost:8000/profile', {
+        await axios.post('http://localhost:8000/Login/LoginVerification', {
             UserID: user.profile.userId,
             DisplayName: user.profile.displayName,
             ImageUrl: user.profile.pictureUrl,
