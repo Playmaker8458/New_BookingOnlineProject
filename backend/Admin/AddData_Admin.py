@@ -28,4 +28,4 @@ def add_Admin(user_name: str, plain_password: str):
 
 if __name__ == "__main__":
     # ทดลอง user
-    add_Admin("admin2","Parkphoom@23") 
+    add_Admin("admin2","Chandra@ComSci2026") 

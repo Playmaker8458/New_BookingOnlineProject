@@ -25,16 +25,16 @@ async def Show_profile(data: UserProfile):
     conn = get_connectionDB()
     cur = conn.cursor()
 
-    # ชุดคำสั่งที่ใช้ในการแทรกข้อมูลในตาราง "LoginPermissions" (ห้ามซ้ำ)
+    # ชุดคำสั่งที่ใช้ในการแทรกข้อมูลในตาราง "LoginPermissions" (กำหนดไม่ให้มีข้อมูลซ้ำกัน)
     SQL_insert = """
-        INSERT INTO "LoginPermissions" (uuid_line, fullname, profile_image)  
-        VALUES (%s,%s,%s) 
+        INSERT INTO "LoginPermissions" (uuid_line, fullname, profile_image, status_permissions, role_user)  
+        VALUES (%s,%s,%s,%s,%s) 
         ON CONFLICT (uuid_line) DO NOTHING;
     """
 
     cur.execute(
         SQL_insert,
-        (Profile_Data['UserID'], Profile_Data['DisplayName'], Profile_Data['ImageUrl'])
+        (Profile_Data['UserID'], Profile_Data['DisplayName'], Profile_Data['ImageUrl'], 'ยังไม่ยืนยัน', 'ยังไม่ได้กำหนดสิทธิ์')
     )
     conn.commit()
 

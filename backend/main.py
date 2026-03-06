@@ -20,11 +20,15 @@ app.add_middleware(
 )
 
 
+# Admin
 # include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /auth/Login สำหรับ login ฝั่ง Admin
 app.include_router(auth_router, prefix="/auth")
 
-# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Login/LoginVerification สำหรับ login User
-app.include_router(LineProfile_router, prefix="/Login")
-
 # include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Table/LoginPermissions สำหรับ login User
 app.include_router(Permission_router, prefix="/Table")
+
+
+
+# User [Student and Advisor]
+# include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Login/LoginVerification สำหรับ login User
+app.include_router(LineProfile_router, prefix="/Login")

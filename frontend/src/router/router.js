@@ -29,6 +29,8 @@ import ManageQueueAdvisor from '../page/AdvisorPage/ManageQueue.vue'
 import RescheduleAppointmentAdvisor from '../page/AdvisorPage/RescheduleAppointment.vue'
 import ConsultationTimeControl from '../page/AdvisorPage/ConsultationTimeControl.vue'
 
+// หน้าสำหรับ test ข้อมูล
+import test from '../page/test.vue'
 
 
 const routes = [
@@ -81,6 +83,12 @@ const routes = [
         {path: '/RescheduleAppointmentAdvisor', name: 'RescheduleAppointmentAdvisor', component: RescheduleAppointmentAdvisor},
         {path: '/ConsultationTimeControl', name: 'ConsultationTimeControl', component: ConsultationTimeControl}
       ]
+    },
+
+    {
+      path: '/Test', 
+      name: 'Test', 
+      component: test
     }
 ]
 

@@ -3,7 +3,7 @@ from Database.ConnectDB import get_connectionDB
 
 router = APIRouter()
 
-@router.get("/LoginPermissions")
+@router.post("/LoginPermissions")
 async def Table_DataProfile():
 
     conn = get_connectionDB()
@@ -15,11 +15,12 @@ async def Table_DataProfile():
         FROM "LoginPermissions"
         ORDER BY "id" ASC
     """
-    # 
+    # ส่งชุดคำสั่งดึงข้อมูล กลับไปประมวลใน pgadmin
     cur.execute(
        SQL_Select 
     )
 
+    # ดึงชุดข้อมูลจากตาราง LoginPermission ทั้งหมด เก็บที่ตัวแปร rows
     rows = cur.fetchall()
 
     result = []
