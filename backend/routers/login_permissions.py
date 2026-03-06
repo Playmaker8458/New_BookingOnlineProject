@@ -20,7 +20,7 @@ async def Table_DataProfile():
        SQL_Select 
     )
 
-    # ดึงชุดข้อมูลจากตาราง LoginPermission ทั้งหมด เก็บที่ตัวแปร rows
+    # ดึงชุดข้อมูลจากตาราง LoginPermission ในฐานข้อมูลกำหนดให้กับตัวแปร rows
     rows = cur.fetchall()
 
     result = []
