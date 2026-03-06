@@ -96,9 +96,3 @@ def login(data: LoginRequest):
     # error อื่น ๆ (เช่น DB error)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-# ส่งข้อมูลกลับไปแสดงใน documentation ของ fastapi ใน path ที่ชื่อว่า show 
-@router.get("/show")
-def ShowData_Login():
-    # ส่ง token กลับ client
-    return {"access_token": access_token}
