@@ -3,7 +3,7 @@ from Database.ConnectDB import get_connectionDB
 
 router = APIRouter()
 
-@router.post("/LoginPermissions")
+@router.post("/LoginRights")
 async def Table_DataProfile():
 
     conn = get_connectionDB()
@@ -24,6 +24,7 @@ async def Table_DataProfile():
     rows = cur.fetchall()
 
     result = []
+    
     for row in rows:
         result.append({
             "id": row[0],

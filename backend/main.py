@@ -2,8 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
  
 from Admin.routers.auth import router as auth_router
-from routers.login_permissions import router as Permission_router
-from routers.Profile_LineLogin import router as LineProfile_router
+from routers.Admin_LoginRights import router as LoginRights_router
+from routers.Update_LoginRights import router as UpdateLoginRights_Router
+
+from routers.ProfileLineLogin import router as LineProfile_router
 
 
 # สร้างตัวอย่าง fastAPI เพื่อใช้ในการจัดการข้อมูลที่ส่งมาด้วย API ทั้งหมด
@@ -25,8 +27,8 @@ app.add_middleware(
 app.include_router(auth_router, prefix="/auth")
 
 # include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Table/LoginPermissions สำหรับ login User
-app.include_router(Permission_router, prefix="/Table")
-
+app.include_router(LoginRights_router, prefix="/Table")
+app.include_router(UpdateLoginRights_Router, prefix="/Update")
 
 
 # User [Student and Advisor]

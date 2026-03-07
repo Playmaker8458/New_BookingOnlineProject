@@ -2,9 +2,10 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from Database.ConnectDB import get_connectionDB
 
+# กำหนดตัวชี path เพื่อเชื่อมต่อกับตัวภายนอก
 router = APIRouter()
 
-# กำหนดข้อมูลในการส่งแบบ Requeate API 
+# กำหนดข้อมูล UserProfile ในการรับข้อมูลจากภายนอกแบบ Requeate 
 class UserProfile(BaseModel):
     UserID: str  
     DisplayName: str 
