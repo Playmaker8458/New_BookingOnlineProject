@@ -8,4 +8,9 @@ export default defineConfig({
     vue(),
     tailwindcss(),
   ],
+    server: {
+    allowedHosts: [
+      '549f-49-229-211-126.ngrok-free.app'
+    ]
+  }
 })
