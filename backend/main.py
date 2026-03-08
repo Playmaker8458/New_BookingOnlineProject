@@ -34,3 +34,13 @@ app.include_router(UpdateLoginRights_Router, prefix="/Update")
 # User [Student and Advisor]
 # include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Login/LoginVerification สำหรับ login User
 app.include_router(LineProfile_router, prefix="/Login")
+
+# # favicon route นี้ใช้ป้องกัน error
+# @app.get("/favicon.ico")
+# def favicon():
+#     return {}
+
+# root
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}

@@ -10,10 +10,11 @@
     const Login = async () => {
         try{
             await liff.init({ liffId: import.meta.env.VITE_LIFF_ID }); // กำหนด Liff ID ที่เก็บในไฟล์ .env สำหรับเริ่มต้นใช้งาน LINE Login
-        
+            console.log("LIFF init done")
             // เช็คสถานะการเข้าสู่ระบบของ Line
             if (!liff.isLoggedIn()) {
-                liff.login(); // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
+                liff.login();
+                return;   // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
             };
 
             const data = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 

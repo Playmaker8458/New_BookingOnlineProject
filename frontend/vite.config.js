@@ -9,8 +9,9 @@ export default defineConfig({
     tailwindcss(),
   ],
     server: {
-    allowedHosts: [
-      '549f-49-229-211-126.ngrok-free.app'
-    ]
+    host: '0.0.0.0',   // สำคัญ
+    port: 5173,
+    strictPort: true,
+    allowedHosts: true
   }
 })
