@@ -69,7 +69,7 @@ const getStatusClass = (status) => {
             <!-- ตาราง -->
             <div class="bg-white p-4 md:p-6 lg:p-10 rounded-lg">
 
-                <!-- Mobile/Tablet Card View (แสดงบนหน้าจอเล็กกว่า 1024px) -->
+                <!-- Mobile/Tablet Card View (แสดงบนหน้าให้จอเล็กกว่า 1024px) -->
                 <div class="lg:hidden space-y-4">
 
                     <div 
