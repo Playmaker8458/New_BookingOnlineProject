@@ -1,6 +1,18 @@
-[33m8c9bc2e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mParkphoom[m[33m)[m update
-[33m20c6522[m[33m ([m[1;32mmain[m[33m)[m Update 2 file
+[33m9ae2d23[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mParkphoom[m[33m, [m[1;31morigin/Parkphoom[m[33m)[m Merge branch 'Parkphoom' of https://github.com/Playmaker8458/New_BookingOnlineProject into Parkphoom
+[33m46ea810[m frontend
+[33mf179d84[m update frontend
+[33m1336bd7[m none
+[33m7bbeb1f[m hh
+[33me450acb[m update
+[33m232ec27[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Update folder Fontend and Backend
+[33mc217094[m Update file router.js and Adminpage ALL
+[33me981a19[m Update ALL
+[33m4aa9faf[m Update ALL
+[33m8201047[m Update ALL
+[33m20c6522[m Update 2 file
 [33m9de5b00[m New Update ALL
+[33m6bf6da6[m resolve merge conflicts using ours version
+[33m19f14bd[m หลังบ้าน admin login
 [33m040193a[m Update file gitignore
 [33mb3e48a9[m Remove .env file from tracking
 [33m299750e[m Remove .env file from tracking
