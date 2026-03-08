@@ -1,7 +1,7 @@
 services:
-  db:  # db คือชื่อ host ที่เราต้องเชื่อมเข้ากับ pgadmin4
-    # ตัวรัน postgreSQL Database เลือกใช้เป็น postgresSQL version 15
-    image: postgres:15 
+  db:
+    # ตัวรัน postgreSQL Database
+    image: postgres:15
     # ชื่อตัวเก็บ postgresSQL Database ตั้งเป็น (postgresSQL)
     container_name: postgresSQL
     # ตัวบังคับ restart container (เมื่อมีการเซตค่าผิดมันจะบังคับ restart ทันที)  
@@ -11,13 +11,12 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     # Port ในการเชื่อมต่อ Database
     ports:
       - "5432:5432" 
     volumes:
-        # หน่วยความจำ หรือ โฟรเดอร์ของฐานข้อมูล postgreSQL 
-      - postgres_data:/var/lib/postgresql
+    - postgres_data:/var/lib/postgresql/data
+    
 
   pgadmin:
     #  ตัวรัน PgAdmin สำหรับจัดการฐานข้อมูล 
@@ -36,6 +35,4 @@ services:
       - "8888:80"
 
 volumes:
-  postgres_data: # กำหนดชื่อ volumes ตามฐานข้อมูลเพื่อทำการสร้างหน่วยพื้นที่ในการเก็บให้กับฐานข้อมูลใน docker
-    # จัดเก็บข้อมูลของฐานข้อมูลไว้ในเครื่องที่เราทำการโฮสอยู่
-    driver: local # ระบุเรียกใช้ driver เป็นแบบ local
+  postgres_data:
