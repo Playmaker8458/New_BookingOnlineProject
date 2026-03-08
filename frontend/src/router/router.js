@@ -15,6 +15,7 @@ import LoginVerification from '../page/LoginVerification.vue'
 import HomepageAdmin from '../page/AdminPage/Homepage.vue'
 import LoginRights from '../page/AdminPage/LoginRights.vue'
 import ManageUserAccounts from '../page/AdminPage/ManageUserAccounts.vue'
+import RecordStatusUser from '../page/AdminPage/RecordStatusUser.vue'
 
 // หน้าเพจของนักศึกษาทั้งหมด
 import HomepageStudent from '../page/StudentPage/Homepage.vue'
@@ -49,7 +50,8 @@ const routes = [
           meta: { requiresAuth: true }
         },
         { path: 'loginrights', name: "loginrights", component: LoginRights },
-        { path: 'manageuseraccounts', name: "manageuseraccounts", component: ManageUserAccounts }
+        { path: 'manageuseraccounts', name: "manageuseraccounts", component: ManageUserAccounts },
+        { path: 'RecordStatusUser', name: "RecordStatusUser", component: RecordStatusUser }
       ]
     },
 

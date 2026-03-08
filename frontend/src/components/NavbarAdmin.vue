@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <nav class="navbar sticky top-0 h-20 bg-[#1C6EA4] shadow-sm">
+    <nav class="navbar sticky top-0 h-20 bg-[#1C6EA4] shadow-sm z-50">
         <div class="navbar-start gap-5">
             <div class="dropdown bg-white m-2 rounded">
                 <div tabindex="0" role="button" class="btn btn-ghost w-13 rounded-sm lg:hidden">
@@ -13,6 +13,7 @@
                     <li><RouterLink to="/admin/homepageAdmin">หน้าหลัก</RouterLink></li>
                     <li><RouterLink to="/admin/loginrights">ยืนยันสิทธิ์การเข้าสู่ระบบ</RouterLink></li>
                     <li><RouterLink to="/admin/manageuseraccounts">จัดการบัญชี</RouterLink></li>
+                    <li><RouterLink to="/admin/RecordStatusUser">ประวัติบัญชีผู้ใช้งาน</RouterLink></li>
                 </ul>
             </div>
             <img class="w-40 h-12 lg:h-13 lg:w-45" src="../assets/Logo_BORC.png" alt="Logo-BORC">
@@ -22,6 +23,7 @@
                 <li class="hover:text-gray-300"><RouterLink to="/admin/homepageAdmin">หน้าหลัก</RouterLink></li>
                 <li class="hover:text-gray-300"><RouterLink to="/admin/loginrights">ยืนยันสิทธิ์การเข้าสู่ระบบ</RouterLink></li>
                 <li class="hover:text-gray-300"><RouterLink to="/admin/manageuseraccounts">จัดการบัญชี</RouterLink></li>
+                <li class="hover:text-gray-300"><RouterLink to="/admin/RecordStatusUser">ประวัติบัญชีผู้ใช้งาน</RouterLink></li>
             </ul>
         </div>
 
