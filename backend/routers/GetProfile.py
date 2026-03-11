@@ -3,8 +3,8 @@ from Database.ConnectDB import get_connectionDB
 
 router = APIRouter()
 
-@router.post("/LoginRights")
-async def Table_DataProfile():
+@router.get("/get_all_profiles")
+async def get_all_profiles():
 
     conn = get_connectionDB()
     cur = conn.cursor()

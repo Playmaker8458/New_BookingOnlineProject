@@ -6,16 +6,13 @@
     const user = useUserStore()
 
     const CreateData_API = async () => {
-        await axios.post('http://localhost:8000/Login/LoginVerification', {
+        axios.post('http://localhost:8000/Login/LoginVerification', {
             UserID: user.profile.userId,
             DisplayName: user.profile.displayName,
             ImageUrl: user.profile.pictureUrl,
         })
-
-        .then(response_post => {
-            console.log(response_post.data)
-        })
     };
+
     onMounted(() => {
         CreateData_API();
     });

@@ -13,7 +13,7 @@ class UserProfile(BaseModel):
 
 
 # ส่งข้อมูลแบบ post โดยจะส่งกลับไปแสดงในหน้า console (Dev-tool: F12) ของเว็ปเพจ
-@router.post("/LoginVerification")
+@router.post("/ProfileLineLogin")
 async def Show_profile(data: UserProfile):
 
     # กำหนดข้อมูลโปลไฟล์ของไลน์ให้ตรงกับที่ดึงมาจาก Axios API ของฝั่ง frontend

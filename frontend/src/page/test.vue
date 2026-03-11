@@ -4,21 +4,34 @@
 
     const tableData = ref([]); // กำหนดตัวจัดเก็บข้อมูล LineLogin ของผู้ใช้งานทั้งหมด (กำหนดเก็บเป็น List)
 
+    const isdisabled = ref(false); // กำหนดตัวปิดการใช้งานปุ่มเป็น false
+    const btn_style = ref({}); // กำหนดสีตัวปิดการใข้งานปุ่มเป็น ค่าว่าง หรือ ปีกกา(เปล่า)
 
     // ดึงข้อมูล LineLogin ของผู้ใช้จาก API ฝั่ง backend
     const ShowData_API = async () => {
-        await axios.post("http://localhost:8000/Table/LoginRights")
+        await axios.get("http://localhost:8000/Users/get_all_profiles")
             .then(response_data => {
                 // เข้าถึงข้อมูลใน tableData และส่งข้อมูลผู้ใช้จาก LineLogin เข้าไปเก็บใน List
                 tableData.value = response_data.data;
             });
+    
+        // เช็คสถานะการเข้าสู่ระบบของผู้ใช้ว่าเป็น "นักศึกษา" หรือ "อาจารย์" 
+        if (tableData.value[0].role_user == "นักศึกษา" || tableData.value[0].role_user == "อาจารย์"){
+            // กำหนดค่าตัวปิดการใช้งานปุ่มเป็น true [ปิดปุ่ม]
+            isdisabled.value = true
+            // กำหนดค่าสีตัวปิดการใช้งานปุ่มเป็นสี "CadetBlue" 
+            btn_style.value = {backgroundColor : '#9CADAE'}; 
+        } else {
+            // กำหนดค่าตัวปิดการใช้งานปุ่มเป็นค่าเดิมกลับไป [เปิดปุ่ม]
+            isdisabled.value = false 
+        }
     };
 
     // Update ข้อมูลสิทธิ์การเข้าสู่ระบบ ของผู้ใช้ผ่าน API ฝั่ง backend
     const UpdateData_API = async (user) => {
         await axios.put(`http://localhost:8000/Update/LoginRightsData/${user.id}`,{
             role_user: user.role_user
-        });
+        })
         // เมื่อส่งข้อมูลไปอัพเดตสำเร็จ จะบังคับ reload หน้าเว็ปทันที
         location.reload();
     }
@@ -46,9 +59,17 @@
                     <td class="px-4 py-3 text-center text-sm font-bold md:text-base">{{ user.status_permissions }}</td>
                     <td class="px-4 py-3 text-center text-sm font-bold md:text-base">{{ user.role_user }}</td>
                     <td class="text-center">
-                        <button class="btn bg-blue-600 text-white rounded-md w-full" @click="$refs['modal_'+user.id][0].showModal()">
-                            ยืนยันสิทธิ์
+
+                        <!-- ปุ่มยืนยันสิทธิ์การเข้าสู่ระบบ -->
+                        <button 
+                            class="btn bg-orange-500 text-white rounded-md w-full" 
+                            :disabled="isdisabled" 
+                            :style="btn_style"
+                            @click="$refs['modal_'+user.id][0].showModal()">
+                            กำหนดสิทธิ์
                         </button>
+
+                        <!-- card หรือ popup กำหนดสิทธิ์การเข้าสู่ระบบ -->
                         <dialog :ref="'modal_'+user.id" class="modal">
                             <div class="modal-box">
                                 <div class="flex flex-col items-center gap-5 mb-5">
