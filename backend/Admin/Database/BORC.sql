@@ -4,8 +4,8 @@ CREATE TYPE "Role" AS ENUM (
 );
 
 CREATE TYPE "StatusLogin" AS ENUM (
-  'Taken_Action ',
-  'Confirmed'
+  'Taken_Action',
+  'pending'
 );
 
 CREATE TYPE "StatusManageAccount" AS ENUM (
