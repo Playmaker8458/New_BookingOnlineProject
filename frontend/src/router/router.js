@@ -8,8 +8,10 @@ import AdminLayout from '../page/AdminPage/AdminLayout.vue'
 import LoginAdmin from '../page/LoginAdmin.vue'
 import LoginUser from '../page/LoginUser.vue'
 
+import RegisterForm from '../page/RegisterForm.vue'
+
 // หน้า รอยืนยันสิทธิ์การเข้าสู่ระบบ
-import LoginVerification from '../page/LoginVerification.vue'
+import WaitingApproval from '../page/WaitingApproval.vue'
 
 // หน้าเพจของผู้ดูแลระบบทั้งหมด
 import HomepageAdmin from '../page/AdminPage/Homepage.vue'
@@ -29,7 +31,6 @@ import ManageQueueAdvisor from '../page/AdvisorPage/ManageQueue.vue'
 import RescheduleAppointmentAdvisor from '../page/AdvisorPage/RescheduleAppointment.vue'
 import ConsultationTimeControl from '../page/AdvisorPage/ConsultationTimeControl.vue'
 
-import test from '../page/test.vue'
 
 const routes = [
     {
@@ -52,17 +53,22 @@ const routes = [
         { path: 'manageuseraccounts', name: "manageuseraccounts", component: ManageUserAccounts }
       ]
     },
-
     {
       path: '/LoginUser',
       name: 'LoginUser',
       component: LoginUser
     },
     {
-      path: '/LoginVerification',
-      name: 'LoginVerification',
-      component: LoginVerification
+      path: '/RegisterForm',
+      name: 'RegisterForm',
+      component: RegisterForm
     },
+    {
+      path: '/WaitingApproval',
+      name: 'WaitingApproval',
+      component: WaitingApproval
+    },
+    
     {
       path : '/Students',
       children :[
@@ -81,12 +87,6 @@ const routes = [
         {path: '/RescheduleAppointmentAdvisor', name: 'RescheduleAppointmentAdvisor', component: RescheduleAppointmentAdvisor},
         {path: '/ConsultationTimeControl', name: 'ConsultationTimeControl', component: ConsultationTimeControl}
       ]
-    },
-
-      {
-      path: '/test',
-      name: 'test',
-      component: test
     }
 ]
 

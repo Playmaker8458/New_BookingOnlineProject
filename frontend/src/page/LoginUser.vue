@@ -1,27 +1,35 @@
 <script setup>
-    import liff from '@line/liff'
-    import { useUserStore } from '../stores/user'
-    import { useRouter } from 'vue-router'
-
+    import axios from 'axios';
+    import liff from '@line/liff';
+    import { useUserStore } from '../stores/user';
+    import { useRouter } from 'vue-router';
+    
     const user = useUserStore(); // กำหนด useUserStore สำหรับส่งข้อมูลไปใช้งานภายนอกให้กับตัวแปร user
-    const router = useRouter(); // กำหนด useRouter ที่ใช้สำหรับนำทางไปยังหน้าต่างให้กับตัวแปร router
+    const router = useRouter();
 
     // Login ใช้สำหรับเข้าสู่ระบบหน้าเว็ปด้วย Line  
     const Login = async () => {
         try{
-            await liff.init({ liffId: import.meta.env.VITE_LIFF_ID }); // กำหนด Liff ID ที่เก็บในไฟล์ .env สำหรับเริ่มต้นใช้งาน LINE Login
-        
-            // เช็คสถานะการเข้าสู่ระบบของ Line
-            if (!liff.isLoggedIn()) {
-                liff.login(); // หากยังไม่เข้าสู่ระบบ ให้ทำการ Login ทันที
+            await liff.init({liffId: import.meta.env.VITE_LIFF_ID});
+            if (!liff.isLoggedIn()){
+                liff.login()
             };
-
-            const data = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
-            user.setProfile(data); // ส่งข้อมูลโปรไฟล์ของตัวแปร data เข้าไปเก็บใน useUserStore เพื่อให้สามารถเรียกใช้งานข้อมูลจากภายนอกได้
-            router.push('/LoginVerification'); // ถ้า login แล้วก็จะนำทางไปยังหน้า "รอยืนยันสิทธิ์การเข้าสู่ระบบ"
-
+            
+            const profile = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
+            const TokenId = liff.getIDToken(); // ดึง Token ผู้ใช้ของไลน์ที่เข้ารหัส เข้าไปเก็บในกับตัวแปร TokenId
+            user.setProfile(profile);
+            await axios.post('http://localhost:8000/Login/auth/VerifyRole',{
+                token : TokenId
+            })
+            
+            .then(res => {
+                console.log(res.data);          
+                if (res.data.Role == "new_user" && res.data.status == "No_Status"){
+                    router.push('/RegisterForm')
+                }      
+            })
         } catch (error) {
-            console.log(`Line Liff Error: ${error}`)
+            console.log(`Line Liff Error: ${error}`);
         }
     };
 </script>

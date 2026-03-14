@@ -1,21 +1,5 @@
 <script setup>
-    import axios from 'axios';
-    import { onMounted } from 'vue';
-    import { useUserStore } from '../stores/user';
-
-    const user = useUserStore()
-
-    const CreateData_API = async () => {
-        axios.post('http://localhost:8000/Login/LoginVerification', {
-            UserID: user.profile.userId,
-            DisplayName: user.profile.displayName,
-            ImageUrl: user.profile.pictureUrl,
-        })
-    };
-
-    onMounted(() => {
-        CreateData_API();
-    });
+    
 </script>
 
 <template>

@@ -4,3 +4,4 @@ python-dotenv
 bcrypt
 python-jose
 psycopg2
+requests
