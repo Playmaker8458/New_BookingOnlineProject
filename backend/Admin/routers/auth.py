@@ -54,7 +54,7 @@ def login(data: LoginRequest):
             with conn.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT id, username, password
+                    SELECT "id", "username", "password"
                     FROM "AdminProfile"
                     WHERE username = %s
                     """,

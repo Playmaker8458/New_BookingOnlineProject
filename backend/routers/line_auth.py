@@ -16,7 +16,7 @@ router = APIRouter()
 class LineToken(BaseModel):
     token : str
 
-# กำหนดส่งช้อมูลแบบ
+# ROUTE Login
 @router.post('/auth/VerifyRole')
 async def check_role(data: LineToken):
     # กำหนด url ของ Line api ในการตรวจสอบความถูกต้องมาเก็บลงในตัวแปร verify_url
@@ -33,7 +33,7 @@ async def check_role(data: LineToken):
     }
 
     """
-    กำหนดข้อมูลสำหรับการส่งคำขอไปยัง Line API เพื่อใช้ในการตรวจสอบ Token Id
+    กำหนดข้อมูลสำหรับส่งคำขอไปยัง Line API เพื่อใช้ในการตรวจสอบ Token Id ของผู้ใช้งาน
     - ดึงตัวแปร verify_url ที่เก็บ URL สำหรับตรวจสอบ token มาใช้งาน
     - ดึง payload ที่เก็บ token_Id ของผู้ใช้ และ channel id ของช่องทาง LoginLiff มาใช้งาน
     - กำหนดเป็น post เพื่อส่งคำขอตรวจสอบข้อมูลผู้ใช้ใน Line ด้วย requests
@@ -42,20 +42,28 @@ async def check_role(data: LineToken):
     
     # แปลงข้อมูลที่เก็บในตัวแปร res เป็น json และเก็บลงในตัวแปร LineUser 
     LineUser = res.json()
-    uuid_line = LineUser['sub']
+    UUID_line = LineUser['sub']
     
 
     cnn = get_connectionDB() # ดึงตัวเชื่อมต่อฐานข้อมูลมาใช้งาน (BORC_Project Database)
-    cur = cnn.cursor() # กำหนดตัวชี้สำหรับไล่ดูข้อมูลในตาราง เพื่อรอส่งชุดคำสังเข้าไปประมวลผล
+    cur = cnn.cursor() # กำหนดตัวรันฐานข้อมูล หรือตัวเข้าถึงฐานข้อมูล (ใช้กับ execute เพื่อรอส่งชุดคำสั่ง SQL)
 
-    # ส่งชุดคำสั่ง SQL ไปยังฐานข้อมูลเพื่อค้นหา UUID_line ของผู้ใช้ที่ส่งเข้ามาเช็ค
+    # ส่งชุดคำสั่ง SQL ไปยังฐานข้อมูลเพื่อค้นหา UUID_line ของผู้ใช้ที่ส่งเข้าไปตรวจสอบว่ามีหรือไม่
     cur.execute(
-        "SELECT \"role_user\",\"status\" FROM \"LoginUser\" WHERE \"uuid_line\"=%s",
-        (uuid_line,)
+        """
+           SELECT "role_user", "status" 
+           FROM "LoginUser"
+           WHERE "uuid_line"=%s
+        """,
+        (UUID_line,)
     )
-
-    user = cur.fetchone()
-    if user == None:
+    
+    user = cur.fetchone() # ดึงข้อมูล 1 แถวที่เป็นของ column [role_user status และ  uuid_line] 
+    
+    # ถ้าไม่พบข้อมูลผู้ใช้ในฐานข้อมูล
+    if not user:
+        # จะส่งสิทธิ์ และ สถานะของผู้ใช้ใหม่กลับไปแสดงใน path /auth/VerifyRole (fastapi)
         return {"Role": "new_user", "status": "No_Status"}
     else:
+        # จะส่งสิทธิ์ และ สถานะข้อมูลของผู้ใช้ที่ถูกบันทึกในฐานข้อมูล กลับไปแสดงใน path /auth/VerifyRole (fastapi)
         return {"Role": user[0], "status": user[1]}

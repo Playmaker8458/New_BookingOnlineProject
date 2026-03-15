@@ -22,15 +22,10 @@
                 token : TokenId
             })
             
-            .then(res => {        
+            .then(res => {
+                console.log(res.data);        
                 if (res.data.Role == "new_user" && res.data.status == "No_Status"){
                     router.push('/RegisterForm')
-                } else if (res.data.Role == "student" && res.data.status == "Taken_Action"){
-                    router.push('/HomepageStudent')
-                } else if (res.data.Role == "Advisor" && res.data.status == "Taken_Action"){
-                    router.push('/HomepageAdvisor')
-                } else {
-                    router.push('/WaitingApproval')
                 }
             })
         } catch (error) {
