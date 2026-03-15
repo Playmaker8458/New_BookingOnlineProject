@@ -2,29 +2,33 @@
     import axios from 'axios';
     import { ref } from 'vue';
     import { useUserStore } from '../stores/user';
+    import { useRouter } from 'vue-router';
 
     const role = ref('');
+
     const prefix = ref('');
     const fristname = ref('');   
     const lastname = ref('');
-
+    const major = ref('');
 
     const user = useUserStore();
+    const router = useRouter();
 
-    const PostDataProfile = async () => {
-        await axios.post('http://localhost:8000/register/api/test',{
-            UserID: user.profile.userId,
+    const InsertUserProfile = async () => {
+        await axios.post('http://localhost:8000/register/InsertProfile',{
             prefix: prefix.value,
             fristname: fristname.value,
             lastname: lastname.value,
-            imageURL: user.profile.pictureUrl
+            major: major.value,
+            UserID: user.profile.sub,
+            imageURL: user.profile.picture
         })
-
         .then(res => {
-            console.log(res.data);
+           if (res.data[0] == null && res.data[1] == "Pending"){
+                router.push('/WaitingApproval');
+           }
         })
     }
-
 </script>
 
 <template>
@@ -36,7 +40,7 @@
             <div class="card-body gap-4 p-6">
                 <!-- Role -->
                 <fieldset class="fieldset">
-                    <legend class="fieldset-legend text-sm">สิทธิ์ของผู้ใช้งาน</legend>
+                    <h1 class="text-sm font-bold mb-1.5">สิทธิ์ของผู้ใช้งาน</h1>
                     <select class="select select-bordered w-full rounded-md" v-model="role">
                         <option value="" disabled>เลือกสิทธิ์ผู้ใช้งาน</option>
                         <option value="student">นักศึกษา</option>
@@ -45,11 +49,11 @@
                 </fieldset>
 
                 <!-- Teacher Fields -->
-                <template v-if="role == 'teacher'">
-                    <div class="divider text-xs text-base-content/50 my-0">ข้อมูลอาจารย์</div>
-                    <div class="grid grid-cols-3 gap-3 items-center">
+                <div v-if="role == 'teacher'">
+                    <div class="divider text-xs text-base-content/50 my-0 mb-1.5">ข้อมูลอาจารย์</div>
+                    <div class="grid gap-3 mb-4 lg:flex lg:gap-4 lg:items-center">
                         <div class="w-full">
-                            <h1 class="">ตำแหน่งทางวิชาการ</h1>
+                            <h1 class="text-sm font-bold mb-1.5">ตำแหน่งทางวิชาการ</h1>
                             <select class="select select-bordered w-full rounded-md" v-model="prefix">
                                 <option value="" disabled selected>เลือกตำแหน่ง</option>
                                 <option value="ศาสตราจารย์">ศาสตราจารย์</option>
@@ -59,22 +63,29 @@
                             </select>
                         </div>
                         <div class="w-full">
-                            <h1 class="text-sm">ชื่อจริง</h1>
+                            <h1 class="text-sm font-bold mb-1.5">ชื่อจริง</h1>
                             <input type="text" class="input input-bordered w-full rounded-md" placeholder="First name" v-model="fristname"/>
                         </div>
                         <div class="w-full">
-                            <h1 class="text-sm">นามสกุล</h1>
+                            <h1 class="text-sm font-bold mb-1.5">นามสกุล</h1>
                             <input type="text" class="input input-bordered w-full rounded-md" placeholder="Last name" v-model="lastname"/>
                         </div>
                     </div>
-                </template>
+                    <div class="w-full">
+                        <h1 class="text-sm font-bold mb-1.5">สาขาวิชา</h1>
+                        <select class="select select-bordered w-full rounded-md" v-model="major">
+                            <option value="" disabled selected>เลือกสาขาวิชา</option>
+                            <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
+                        </select>
+                    </div>
+                </div>
 
-                <!-- Teacher Fields -->
-                <template v-if="role == 'student'">
+                <!-- student Fields -->
+                <div v-if="role == 'student'">
                     <div class="divider text-xs text-base-content/50 my-0">ข้อมูลนักศึกษา</div>
-                    <div class="flex gap-4  items-center">
+                    <div class="grid gap-3 mb-4 lg:flex lg:gap-4 lg:items-center">
                         <div class="w-full">
-                            <h1 class="">คำนำหน้าชื่อ</h1>
+                            <h1 class="text-sm font-bold mb-1.5">คำนำหน้าชื่อ</h1>
                             <select class="select select-bordered w-full rounded-md" v-model="prefix">
                                 <option value="" disabled selected>เลือกคำนำหน้าชื่อ</option>
                                 <option value="นาย">นาย</option>
@@ -83,21 +94,28 @@
                             </select>
                         </div>
                         <div class="w-full">
-                            <h1 class="text-sm">ชื่อจริง</h1>
+                            <h1 class="text-sm font-bold mb-1.5">ชื่อจริง</h1>
                             <input type="text" class="input input-bordered w-full rounded-md" placeholder="First name" v-model="fristname"/>
                         </div>
                         <div class="w-full">
-                            <h1 class="text-sm">นามสกุล</h1>
+                            <h1 class="text-sm font-bold mb-1.5">นามสกุล</h1>
                             <input type="text" class="input input-bordered w-full rounded-md" placeholder="Last name" v-model="lastname"/>
                         </div>
                     </div>
-                </template>
+                    <div class="w-full">
+                        <h1 class="text-sm font-bold mb-1.5">สาขาวิชา</h1>
+                        <select class="select select-bordered w-full rounded-md" v-model="major">
+                            <option value="" disabled selected>เลือกสาขาวิชา</option>
+                            <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
+                        </select>
+                    </div>
+                </div>
 
                 <!-- Footer -->
                 <div class="card-actions justify-end mt-2 w-full">
                     <button 
                         class="btn btn-secondary text-white px-8 w-full rounded-md" 
-                        @click="PostDataProfile()">
+                        @click="InsertUserProfile()">
                         บันทึกข้อมูล
                     </button>
                 </div>

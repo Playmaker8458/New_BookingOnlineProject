@@ -15,23 +15,34 @@
                 liff.login()
             };
             
-            const profile = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
             const TokenId = liff.getIDToken(); // ดึง Token ผู้ใช้ของไลน์ที่เข้ารหัส เข้าไปเก็บในกับตัวแปร TokenId
-            user.setProfile(profile);
             await axios.post('http://localhost:8000/Login/auth/VerifyRole',{
                 token : TokenId
             })
-            
             .then(res => {
-                console.log(res.data);        
-                if (res.data.Role == "new_user" && res.data.status == "No_Status"){
-                    router.push('/RegisterForm')
+                console.log(res.data.profile)
+                user.setProfile(res.data.profile);
+                if (res.data.Role == "new_user" && res.data.status == "No_Status") {
+                    router.push('/RegisterForm');
+                } else if (res.data.Role == "Student" && res.data.status == "Processed") {
+                    router.push('/HomepageStudent');
+                } else if (res.data.Role == "Advisor" && res.data.status == "Processed"){
+                    router.push('/HomepageAdvisor');
+                } else if (res.data.Role == null && res.data.status == "Pending"){
+                    router.push('/WaitingApproval')
                 }
             })
         } catch (error) {
             console.log(`Line Liff Error: ${error}`);
         }
     };
+
+    const Logout = async () => {
+        await liff.init({liffId: import.meta.env.VITE_LIFF_ID});
+        if (liff.isLoggedIn()){
+            liff.logout()
+        }
+    }
 </script>
 
 <template>

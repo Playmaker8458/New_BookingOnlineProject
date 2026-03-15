@@ -18,7 +18,7 @@ class LineToken(BaseModel):
 
 # ROUTE /auth/VerifyRole
 @router.post('/auth/VerifyRole')
-async def check_role(data: LineToken):
+async def Line_Login(data: LineToken):
     # กำหนด url ของ Line api ในการตรวจสอบความถูกต้องมาเก็บลงในตัวแปร verify_url
     verify_url = 'https://api.line.me/oauth2/v2.1/verify'
 
@@ -44,28 +44,34 @@ async def check_role(data: LineToken):
     LineUser = res.json()
     UUID_line = LineUser['sub']
     
-
     cnn = get_connectionDB() # ดึงตัวเชื่อมต่อฐานข้อมูลมาใช้งาน (BORC_Project Database)
     cur = cnn.cursor() # กำหนดตัวรันฐานข้อมูล หรือตัวเข้าถึงฐานข้อมูล (ใช้กับ execute เพื่อรอส่งชุดคำสั่ง SQL)
 
+    SQL_SELECT = """
+        SELECT "role_user", "status" 
+        FROM "LoginUser"
+        WHERE "uuid_line"=%s
+    """
+
     # ส่งชุดคำสั่ง SQL ไปยังฐานข้อมูลเพื่อค้นหา UUID_line ของผู้ใช้ที่ส่งเข้าไปตรวจสอบว่ามีหรือไม่
     cur.execute(
-        """
-           SELECT "role_user", "status" 
-           FROM "LoginUser"
-           WHERE "uuid_line"=%s
-        """,
+        SQL_SELECT,
         (UUID_line,)
     )
     
     # ดึงข้อมูล 1 แถวของผู้ใช้ที่ส่งเข้าไปออกมา และกำหนดให้กับตัวแปร user  
     user = cur.fetchone()  
     
-    # ถ้าไม่พบข้อมูลผู้ใช้ในฐานข้อมูล
+    # ตรวจสอบข้อมูลผู้ใช้ 
     if not user:
-        # จะส่งสิทธิ์ และ สถานะของผู้ใช้ใหม่กลับไปแสดงใน path /auth/VerifyRole (fastapi)
-        return {"Role": "new_user", "status": "No_Status"}
-    else:
-        # จะส่งสิทธิ์ และ สถานะข้อมูลของผู้ใช้ที่ถูกบันทึกในฐานข้อมูล กลับไปแสดงใน path /auth/VerifyRole (fastapi)
+        # ถ้ายังไม่มีข้อมูลผู้ใช้ จะส่งสิทธิ์ และ สถานะของผู้ใช้ใหม่กลับยัง path /auth/VerifyRole (fastapi)
+        return {"Role": "new_user", "status": "No_Status", "profile": LineUser}
+    elif user[0] == "Student" and user[1] == "Processed":
+        # ถ้าข้อมูลผู้ใช้เป็นของนักศึกษา จะส่งข้อมูลกลับไปยัง path /auth/VerifyRole (fastapi)
         return {"Role": user[0], "status": user[1]}
-    
+    elif user[0] == "Advisor" and user[1] == "Processed":
+        # ถ้าข้อมูลผู้ใช้เป็นของอาจารย์ จะส่งข้อมูลกลับไปยัง path /auth/VerifyRole (fastapi)
+        return {"Role": user[0], "status": user[1]}
+    else:
+        # ถ้ายังไม่ได้ยืนยันสิทธิ์ในการเข้าสู่ระบบ จะส่งข้อมูลกลับไปยัง path /auth/VerifyRole (fastapi)
+        return {"Role": user[0], "status": user[1]}
