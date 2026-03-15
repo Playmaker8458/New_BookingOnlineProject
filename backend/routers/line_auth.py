@@ -9,14 +9,14 @@ from Database.ConnectDB import get_connectionDB
 # ดึงตัวแปรในไฟล์ env ทั้งหมดเข้ามาใช้งาน
 load_dotenv()
 
-# กำหนดตัวชี้ path เพื่อเชื่อมต่อกับตัว app ภายนอก
+# กำหนดตัวชี้ path เพื่อเชื่อมต่อกับตัว app router path ภายนอก
 router = APIRouter()
 
 # กำหนด Token เอาไว้รับข้อมูลจากหน้า frontend แบบ requests
 class LineToken(BaseModel):
     token : str
 
-# ROUTE Login
+# ROUTE /auth/VerifyRole
 @router.post('/auth/VerifyRole')
 async def check_role(data: LineToken):
     # กำหนด url ของ Line api ในการตรวจสอบความถูกต้องมาเก็บลงในตัวแปร verify_url
@@ -58,7 +58,8 @@ async def check_role(data: LineToken):
         (UUID_line,)
     )
     
-    user = cur.fetchone() # ดึงข้อมูล 1 แถวที่เป็นของ column [role_user status และ  uuid_line] 
+    # ดึงข้อมูล 1 แถวของผู้ใช้ที่ส่งเข้าไปออกมา และกำหนดให้กับตัวแปร user  
+    user = cur.fetchone()  
     
     # ถ้าไม่พบข้อมูลผู้ใช้ในฐานข้อมูล
     if not user:
@@ -67,3 +68,4 @@ async def check_role(data: LineToken):
     else:
         # จะส่งสิทธิ์ และ สถานะข้อมูลของผู้ใช้ที่ถูกบันทึกในฐานข้อมูล กลับไปแสดงใน path /auth/VerifyRole (fastapi)
         return {"Role": user[0], "status": user[1]}
+    
