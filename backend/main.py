@@ -4,6 +4,7 @@ from Admin.routers.auth import router as auth_router
 
 from routers.line_auth import router as line_auth
 from routers.InsertProfile import router as InsertProfile_router
+from routers.CheckRoleUser import router as CheckRoleUser_router
 
 
 # สร้างตัวอย่าง fastAPI เพื่อใช้ในการจัดการข้อมูลที่ส่งมาด้วย API ทั้งหมด
@@ -29,4 +30,4 @@ app.include_router(auth_router, prefix="/auth")
 # include router คือรวม route จากไฟล์อื่น ตรงนี้ที่เขียนไว้ในไฟล์อื่นมาใช้งานใน app หลักเป็น /Login/LoginVerification สำหรับ login User
 app.include_router(line_auth, prefix="/Login")
 app.include_router(InsertProfile_router, prefix="/register")
-
+app.include_router(CheckRoleUser_router, prefix="/register")

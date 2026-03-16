@@ -14,15 +14,16 @@
             if (!liff.isLoggedIn()){
                 liff.login()
             };
-            
-            const TokenId = liff.getIDToken(); // ดึง Token ผู้ใช้ของไลน์ที่เข้ารหัส เข้าไปเก็บในกับตัวแปร TokenId
+            // ดึง Token ผู้ใช้ของไลน์ที่เข้ารหัส เข้าไปเก็บในกับตัวแปร TokenId
+            const accessToken = liff.getAccessToken(); 
+
             await axios.post('http://localhost:8000/Login/auth/VerifyRole',{
-                token : TokenId
+                Token: accessToken
             })
             .then(res => {
-                console.log(res.data.profile)
-                user.setProfile(res.data.profile);
+                console.log(res.data)
                 if (res.data.Role == "new_user" && res.data.status == "No_Status") {
+                    user.setProfile(res.data.profile);
                     router.push('/RegisterForm');
                 } else if (res.data.Role == "Student" && res.data.status == "Processed") {
                     router.push('/HomepageStudent');
@@ -36,13 +37,6 @@
             console.log(`Line Liff Error: ${error}`);
         }
     };
-
-    const Logout = async () => {
-        await liff.init({liffId: import.meta.env.VITE_LIFF_ID});
-        if (liff.isLoggedIn()){
-            liff.logout()
-        }
-    }
 </script>
 
 <template>

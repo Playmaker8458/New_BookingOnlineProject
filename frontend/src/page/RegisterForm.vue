@@ -20,13 +20,18 @@
             fristname: fristname.value,
             lastname: lastname.value,
             major: major.value,
-            UserID: user.profile.sub,
-            imageURL: user.profile.picture
+            UserID: user.profile.userId,
+            imageURL: user.profile.pictureUrl
         })
+    }
+
+    const CheckRoleUser = async () => {
+        await InsertUserProfile();
+        await axios.get('http://localhost:8000/register/CheckRoleUser')
         .then(res => {
-           if (res.data[0] == null && res.data[1] == "Pending"){
-                router.push('/WaitingApproval');
-           }
+            if (res.data[0] == null && res.data[1] == "Pending"){
+                router.push('/WaitingApproval')
+            }
         })
     }
 </script>
@@ -115,7 +120,7 @@
                 <div class="card-actions justify-end mt-2 w-full">
                     <button 
                         class="btn btn-secondary text-white px-8 w-full rounded-md" 
-                        @click="InsertUserProfile()">
+                        @click="CheckRoleUser()">
                         บันทึกข้อมูล
                     </button>
                 </div>

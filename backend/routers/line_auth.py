@@ -1,4 +1,3 @@
-import os
 import requests
 
 from dotenv import load_dotenv
@@ -13,65 +12,54 @@ load_dotenv()
 router = APIRouter()
 
 # กำหนด Token เอาไว้รับข้อมูลจากหน้า frontend แบบ requests
-class LineToken(BaseModel):
-    token : str
+class LineAccessToken(BaseModel):
+    Token: str
 
 # ROUTE /auth/VerifyRole
 @router.post('/auth/VerifyRole')
-async def Line_Login(data: LineToken):
-    # กำหนด url ของ Line api ในการตรวจสอบความถูกต้องมาเก็บลงในตัวแปร verify_url
-    verify_url = 'https://api.line.me/oauth2/v2.1/verify'
+async def Line_Login(data: LineAccessToken):
 
-    """
-    กำหนด payload สำหรับรอส่ง Token_ID ของผู้ใช้ไปตรวจสอบความถูกต้องใน LINE
-    - กำหนด token_ID ของ Liff login ที่ได้จากการรับข้อมูลแบบ requests
-    - กำหนด Channel_ID ของ LINE Login ที่ดึงมาจากไฟล์ .env
-    """
-    payload = {
-        "id_token": data.token,
-        "client_id": os.getenv('LINE_CHANNEL_ID')
+    # กำหนด url ของ Line api ในการตรวจสอบความถูกต้องมาเก็บลงในตัวแปร url
+    url = 'https://api.line.me/v2/profile'
+
+    # ดึง Access Token จาก LineToken ที่รับข้อมูลแบบ requests เก็บลงในตัวแปร Access_token
+    Access_token = data.Token
+    
+    headers = {
+        "Authorization": f"Bearer {Access_token}"
     }
 
-    """
-    กำหนดข้อมูลสำหรับส่งคำขอไปยัง Line API เพื่อใช้ในการตรวจสอบ Token Id ของผู้ใช้งาน
-    - ดึงตัวแปร verify_url ที่เก็บ URL สำหรับตรวจสอบ token มาใช้งาน
-    - ดึง payload ที่เก็บ token_Id ของผู้ใช้ และ channel id ของช่องทาง LoginLiff มาใช้งาน
-    - กำหนดเป็น post เพื่อส่งคำขอตรวจสอบข้อมูลผู้ใช้ใน Line ด้วย requests
-    """
-    res = requests.post(verify_url, data=payload)
-    
-    # แปลงข้อมูลที่เก็บในตัวแปร res เป็น json และเก็บลงในตัวแปร LineUser 
-    LineUser = res.json()
-    UUID_line = LineUser['sub']
-    
-    cnn = get_connectionDB() # ดึงตัวเชื่อมต่อฐานข้อมูลมาใช้งาน (BORC_Project Database)
-    cur = cnn.cursor() # กำหนดตัวรันฐานข้อมูล หรือตัวเข้าถึงฐานข้อมูล (ใช้กับ execute เพื่อรอส่งชุดคำสั่ง SQL)
+    # กำหนดข้อมูลสำหรับส่งคำขอไปยัง Line API เพื่อใช้ในการตรวจสอบ AccessToken ของผู้ใช้งาน
+    res = requests.post(url, headers=headers)
+
+    # แปลงข้อมูลที่เก็บในตัวแปร res เป็น json และเก็บลงในตัวแปร UserProfile
+    UserProfile = res.json() 
+    # ดึง userid จากตัวแปร UserProfile มาเก็บไว้ที่ตัวแปร UUID_line
+    UUID_line = UserProfile['userId']     
+
+    # ดึงตัวเชื่อมต่อฐานข้อมูลมาใช้งาน (BORC_Project Database)
+    cnn = get_connectionDB() 
+    # กำหนดตัวรันฐานข้อมูล หรือตัวเข้าถึงฐานข้อมูล (ใช้กับ execute เพื่อรอส่งชุดคำสั่ง SQL)
+    cur = cnn.cursor() 
 
     SQL_SELECT = """
         SELECT "role_user", "status" 
         FROM "LoginUser"
         WHERE "uuid_line"=%s
     """
-
     # ส่งชุดคำสั่ง SQL ไปยังฐานข้อมูลเพื่อค้นหา UUID_line ของผู้ใช้ที่ส่งเข้าไปตรวจสอบว่ามีหรือไม่
     cur.execute(
         SQL_SELECT,
         (UUID_line,)
     )
-    
+
     # ดึงข้อมูล 1 แถวของผู้ใช้ที่ส่งเข้าไปออกมา และกำหนดให้กับตัวแปร user  
-    user = cur.fetchone()  
-    
-    # ตรวจสอบข้อมูลผู้ใช้ 
-    if not user:
-        # ถ้ายังไม่มีข้อมูลผู้ใช้ จะส่งสิทธิ์ และ สถานะของผู้ใช้ใหม่กลับยัง path /auth/VerifyRole (fastapi)
-        return {"Role": "new_user", "status": "No_Status", "profile": LineUser}
-    elif user[0] == "Student" and user[1] == "Processed":
-        # ถ้าข้อมูลผู้ใช้เป็นของนักศึกษา จะส่งข้อมูลกลับไปยัง path /auth/VerifyRole (fastapi)
-        return {"Role": user[0], "status": user[1]}
-    elif user[0] == "Advisor" and user[1] == "Processed":
-        # ถ้าข้อมูลผู้ใช้เป็นของอาจารย์ จะส่งข้อมูลกลับไปยัง path /auth/VerifyRole (fastapi)
-        return {"Role": user[0], "status": user[1]}
+    user = cur.fetchone() 
+
+    # ตรวจสอบข้อมูลผู้ใช้
+    if not user: 
+        # ถ้ายังไม่มีข้อมูลผู้ใช้ จะส่งข้อมูลใหม่กลับไปยัง path /auth/VerifyRole 
+        return {"Role": "new_user", "status": "No_Status", "profile": UserProfile}
     else:
-        # ถ้ายังไม่ได้ยืนยันสิทธิ์ในการเข้าสู่ระบบ จะส่งข้อมูลกลับไปยัง path /auth/VerifyRole (fastapi)
+        # ถ้ามีข้อมูลผู้ใช้ จะส่งข้อมูลที่สมัครสมาชิกแล้วกลับไปยัง path /auth/VerifyRole 
         return {"Role": user[0], "status": user[1]}

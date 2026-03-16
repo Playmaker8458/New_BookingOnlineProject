@@ -31,6 +31,7 @@ import ManageQueueAdvisor from '../page/AdvisorPage/ManageQueue.vue'
 import RescheduleAppointmentAdvisor from '../page/AdvisorPage/RescheduleAppointment.vue'
 import ConsultationTimeControl from '../page/AdvisorPage/ConsultationTimeControl.vue'
 
+import test from '../page/test.vue'
 
 const routes = [
     {
@@ -87,7 +88,8 @@ const routes = [
         {path: '/RescheduleAppointmentAdvisor', name: 'RescheduleAppointmentAdvisor', component: RescheduleAppointmentAdvisor},
         {path: '/ConsultationTimeControl', name: 'ConsultationTimeControl', component: ConsultationTimeControl}
       ]
-    }
+    },
+    {path: '/test', name: 'test', component:test}
 ]
 
 export default routes
