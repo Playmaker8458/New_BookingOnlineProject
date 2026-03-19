@@ -9,7 +9,8 @@ async def CheckRoleUser():
     cur = cnn.cursor()
 
     SQL_SELECT = """
-        SELECT "role_user", "status" FROM "LoginUser"
+        SELECT "role_user", "status" 
+        FROM "LoginUser"
     """
 
     cur.execute(SQL_SELECT)

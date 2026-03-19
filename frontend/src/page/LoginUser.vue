@@ -12,8 +12,9 @@
         try{
             await liff.init({liffId: import.meta.env.VITE_LIFF_ID});
             if (!liff.isLoggedIn()){
-                liff.login()
+                liff.login();
             };
+
             // ดึง Token ผู้ใช้ของไลน์ที่เข้ารหัส เข้าไปเก็บในกับตัวแปร TokenId
             const accessToken = liff.getAccessToken(); 
 
@@ -21,7 +22,6 @@
                 Token: accessToken
             })
             .then(res => {
-                console.log(res.data)
                 if (res.data.Role == "new_user" && res.data.status == "No_Status") {
                     user.setProfile(res.data.profile);
                     router.push('/RegisterForm');
@@ -30,9 +30,12 @@
                 } else if (res.data.Role == "Advisor" && res.data.status == "Processed"){
                     router.push('/HomepageAdvisor');
                 } else if (res.data.Role == null && res.data.status == "Pending"){
-                    router.push('/WaitingApproval')
+                    router.push('/WaitingApproval');
+                } else {
+                    console.log(`เกิดข้อผิดพลาด ${res.data.error} | สถานะ ${res.data.status}`);
+                    liff.logout();
                 }
-            })
+            });
         } catch (error) {
             console.log(`Line Liff Error: ${error}`);
         }
