@@ -18,6 +18,7 @@
             };
 
             const data = await liff.getProfile(); // ดึงข้อมูลโปรไฟล์ของไลน์ เข้าไปเก็บในตัวแปร data 
+            
             user.setProfile(data); // ส่งข้อมูลโปรไฟล์ของตัวแปร data เข้าไปเก็บใน useUserStore เพื่อให้สามารถเรียกใช้งานข้อมูลจากภายนอกได้
             router.push('/LoginVerification'); // ถ้า login แล้วก็จะนำทางไปยังหน้า "รอยืนยันสิทธิ์การเข้าสู่ระบบ"
 

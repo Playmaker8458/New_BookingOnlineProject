@@ -68,20 +68,20 @@ const routes = [
     {
       path : '/Students',
       children :[
-        {path: '/HomepageStudent', name: 'HomepageStudent', component: HomepageStudent},
-        {path: '/BookAppointment', name: 'BookAppointment', component: BookAppointment},
-        {path: '/ManageQueueStudent', name: 'ManageQueueStudent', component: ManageQueueStudent},
-        {path: '/RescheduleAppointmentStudent', name: 'RescheduleAppointmentStudent', component: RescheduleAppointmentStudent},
+        {path: 'HomepageStudent', name: 'HomepageStudent', component: HomepageStudent},
+        {path: 'BookAppointment', name: 'BookAppointment', component: BookAppointment},
+        {path: 'ManageQueueStudent', name: 'ManageQueueStudent', component: ManageQueueStudent},
+        {path: 'RescheduleAppointmentStudent', name: 'RescheduleAppointmentStudent', component: RescheduleAppointmentStudent},
       ]
     },
     {
       path: '/Advisor',
       children:[
-        {path: '/HomepageAdvisor', name: 'HomepageAdvisor', component: HomepageAdvisor},
-        {path: '/ConsultationTimeSlot', name: 'ConsultationTimeSlot', component: ConsultationTimeSlot},
-        {path: '/ManageQueueAdvisor', name: 'ManageQueueAdvisor', component: ManageQueueAdvisor},
-        {path: '/RescheduleAppointmentAdvisor', name: 'RescheduleAppointmentAdvisor', component: RescheduleAppointmentAdvisor},
-        {path: '/ConsultationTimeControl', name: 'ConsultationTimeControl', component: ConsultationTimeControl}
+        {path: 'HomepageAdvisor', name: 'HomepageAdvisor', component: HomepageAdvisor},
+        {path: 'ConsultationTimeSlot', name: 'ConsultationTimeSlot', component: ConsultationTimeSlot},
+        {path: 'ManageQueueAdvisor', name: 'ManageQueueAdvisor', component: ManageQueueAdvisor},
+        {path: 'RescheduleAppointmentAdvisor', name: 'RescheduleAppointmentAdvisor', component: RescheduleAppointmentAdvisor},
+        {path: 'ConsultationTimeControl', name: 'ConsultationTimeControl', component: ConsultationTimeControl}
       ]
     },
 

@@ -19,6 +19,15 @@
             })
     };
 
+    // Update ข้อมูลสิทธิ์การเข้าสู่ระบบ ของผู้ใช้ผ่าน API ฝั่ง backend
+    const UpdateData_API = async (user) => {
+        await axios.put(`http://localhost:8000/Update/LoginRightsData/${user.id}`,{
+            role_user: user.role_user
+        });
+        // เมื่อส่งข้อมูลไปอัพเดตสำเร็จ จะบังคับ reload หน้าเว็ปทันที
+        await ShowData_API();
+    }
+
     onMounted(() => {
         ShowData_API();
     });
@@ -34,6 +43,7 @@
             ); // ส่งข้อมูลผู้ใช้ 1 คนในตารางกลับไปแสดงผล (ตามการรับค่า)
         }
     });
+
 </script>
 
 
@@ -83,10 +93,10 @@
                             <div class="py-3">
                                 <button
                                     class="w-full bg-[#4665EC] text-white py-2.5 px-4 rounded cursor-pointer hover:bg-[#3651d4] transition-colors"
-                                    onclick="my_modal.showModal()">
+                                    @click="$refs['modal_'+user.id][0].showModal()">
                                     ยืนยันสิทธิ์
                                 </button>
-                                <dialog id="my_modal" class="modal">
+                                <dialog :ref="'modal_'+user.id" class="modal">
                                     <div class="modal-box">
                                         <div class="flex flex-col items-center gap-10 text-center">
                                             <div class="flex flex-col items-center gap-5">
@@ -150,12 +160,12 @@
                                     <td class="px-4 py-3 text-center">
                                         <button
                                             class="bg-[#4665EC] cursor-pointer text-white py-2 px-6 rounded hover:bg-[#3651d4] transition-colors"
-                                            onclick="my_modal_4.showModal()">
+                                           @click="$refs['modal_'+user.id][0].showModal()">
                                             ยืนยันสิทธิ์
                                         </button>
 
                                         <!-- pop up ยืนยันสิทธิ์การเข้าสู่ระบบ -->
-                                        <dialog id="my_modal_4" class="modal">
+                                        <dialog @click="$refs['modal_'+user.id][0].showModal()" class="modal">
                                             <div class="modal-box">
                                                 <div class="flex flex-col items-center gap-10 text-center">
                                                     <div class="flex flex-col items-center gap-5">
@@ -175,7 +185,9 @@
                                                     <!-- Buttons -->
                                                     <form method="dialog" class="w-full">
                                                         <div class="flex flex-col items-center gap-5 w-full">
-                                                            <button class="btn w-full bg-stone-400 text-white rounded-md">ยืนยันสิทธิ์</button>
+                                                            <button class="btn w-full bg-stone-400 text-white rounded-md" 
+                                                             @click="UpdateData_API(user)">ยืนยันสิทธิ์การเข้าสู่ระบบ 
+                                                             </button>
                                                             <button class="btn w-full bg-red-600 text-white rounded-md">ยกเลิก</button>
                                                         </div>
                                                     </form>
@@ -206,3 +218,4 @@
     border: 2px solid rgb(161, 159, 159) !important;
 }
 </style>
+

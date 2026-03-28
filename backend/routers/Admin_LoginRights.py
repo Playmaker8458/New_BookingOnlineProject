@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from Database.ConnectDB import get_connectionDB
+from Admin.Database.ConnectDB import get_connectionDB
 
 router = APIRouter()
 
@@ -11,9 +11,9 @@ async def Table_DataProfile():
 
     # ชุดคำสั่งในการดึงข้อมูลทั้งหมดจากตาราง LoginPermission และ เลียงลำดับ id จากน้อยไปหามาก
     SQL_Select = """
-        SELECT *
-        FROM "LoginPermissions"
-        ORDER BY "id" ASC
+       SELECT * FROM "LoginPermissions" lo
+        FULL OUTER JOIN "AdminProfile" ad
+        ON lo.admin_id = ad.id
     """
     # ส่งชุดคำสั่งดึงข้อมูล กลับไปประมวลใน pgadmin
     cur.execute(
@@ -33,7 +33,6 @@ async def Table_DataProfile():
             "profile_image": row[3],
             "status_permissions": row[4],
             "role_user": row[5],
-            "admin_id": row[6]
         })
 
     cur.close()

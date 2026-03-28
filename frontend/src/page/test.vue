@@ -41,7 +41,7 @@
                 </tr>
             </thead>
             <tbody class="bg-white border border-gray-200">
-                <tr v-for="user in tableData"">
+                <tr v-for="user in tableData">
                     <td class="px-4 py-3 text-center text-sm font-bold md:text-base">{{ user.fullname }}</td>
                     <td class="px-4 py-3 text-center text-sm font-bold md:text-base">{{ user.status_permissions }}</td>
                     <td class="px-4 py-3 text-center text-sm font-bold md:text-base">{{ user.role_user }}</td>

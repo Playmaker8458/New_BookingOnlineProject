@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from Database.ConnectDB import get_connectionDB
+from Admin.Database.ConnectDB import get_connectionDB
 
 # กำหนดตัวชี path เพื่อเชื่อมต่อกับตัวภายนอก
 router = APIRouter()
@@ -21,7 +21,8 @@ async def UpdateRole(id: int, date: RoleUpdate):
     # กำหนดชุดคำสั่ง UPDATE ของตาราง "LoginPermissions" ให้กับตัวแปร UpdateSQL
     UpdateSQL = """
         UPDATE "LoginPermissions"
-        SET "status_permissions" = %s, "role_user" = %s 
+        SET "status_permissions" = %s,
+          "role_user" = %s 
         WHERE id = %s
     """
 

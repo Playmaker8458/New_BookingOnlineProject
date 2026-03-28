@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from Database.ConnectDB import get_connectionDB
+from Admin.Database.ConnectDB import get_connectionDB
 
 # กำหนดตัวชี path เพื่อเชื่อมต่อกับตัวภายนอก
 router = APIRouter()
